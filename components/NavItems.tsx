@@ -34,10 +34,10 @@ function NavItems({initialStocks}: NavItemsProps) {
                             href={href}
                             className={`transition-colors text-xs font-bold tracking-[0.1em] uppercase ${
                                 isActive(href)
-                                    ? 'text-[#7df4ff] border-b-2 border-[#7df4ff] pb-1'
-                                    : 'text-[#b9cacb] hover:text-[#e2e2e8]'
+                                    ? 'text-brand border-b-2 border-brand pb-1'
+                                    : 'text-fg-soft hover:text-fg'
                             }`}
-                            style={{ fontFamily: 'var(--font-jetbrains)' }}
+                            style={{ fontFamily: 'var(--type-mono)' }}
                         >
                             {label}
                         </Link>

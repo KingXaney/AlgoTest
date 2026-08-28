@@ -19,59 +19,59 @@ const PortfolioSidebarCard = ({portfolio}: {portfolio: SidebarPortfolio}) => {
             href="/portfolio"
             className="relative block rounded-xl p-4 mb-6 shimmer overflow-hidden transition-all hover:brightness-110"
             style={{
-                backgroundColor: 'rgba(125, 244, 255, 0.06)',
-                border: '1px solid rgba(125, 244, 255, 0.15)',
+                backgroundColor: 'color-mix(in srgb, var(--brand) 6%, transparent)',
+                border: '1px solid color-mix(in srgb, var(--brand) 15%, transparent)',
             }}
         >
             <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-2">
-                    <span className="material-symbols-outlined text-[#7df4ff]"
+                    <span className="material-symbols-outlined text-brand"
                           style={{fontVariationSettings: "'FILL' 1"}}
                     >account_balance_wallet</span>
-                    <span className="text-[#7df4ff] text-xs font-bold tracking-[0.1em] uppercase"
-                          style={{fontFamily: 'var(--font-jetbrains)'}}
+                    <span className="text-brand text-xs font-bold tracking-[0.1em] uppercase"
+                          style={{fontFamily: 'var(--type-mono)'}}
                     >Portfolio</span>
                 </div>
 
-                <p className="text-2xl font-semibold text-[#e2e2e8]"
-                   style={{fontFamily: 'var(--font-sora)'}}
+                <p className="text-2xl font-semibold text-fg"
+                   style={{fontFamily: 'var(--type-display)'}}
                 >{formatPrice(portfolio.totalValue)}</p>
-                <p className="text-sm" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                <p className="text-sm" style={{fontFamily: 'var(--type-mono)'}}>
                     <span className={getChangeColorClass(portfolio.totalReturnPct || undefined)}>
                         {sign}{portfolio.totalReturnPct.toFixed(2)}%
                     </span>
-                    <span className="text-[#849495] text-xs"> total return</span>
+                    <span className="text-fg-muted text-xs"> total return</span>
                 </p>
                 {portfolio.strategiesCount > 1 && (
-                    <p className="text-[10px] uppercase tracking-[0.08em] text-[#849495] mt-1" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <p className="text-[10px] uppercase tracking-[0.08em] text-fg-muted mt-1" style={{fontFamily: 'var(--type-mono)'}}>
                         All accounts · {portfolio.strategiesCount} strategies
                     </p>
                 )}
 
-                <div className="mt-3 pt-3 border-t border-[rgba(125,244,255,0.12)] flex items-center justify-between">
-                    <span className="text-[10px] uppercase tracking-[0.1em] text-[#849495]"
-                          style={{fontFamily: 'var(--font-jetbrains)'}}>Cash</span>
-                    <span className="text-xs text-[#b9cacb]"
-                          style={{fontFamily: 'var(--font-jetbrains)'}}>{formatPrice(portfolio.cash)}</span>
+                <div className="mt-3 pt-3 border-t border-brand/12 flex items-center justify-between">
+                    <span className="text-[10px] uppercase tracking-[0.1em] text-fg-muted"
+                          style={{fontFamily: 'var(--type-mono)'}}>Cash</span>
+                    <span className="text-xs text-fg-soft"
+                          style={{fontFamily: 'var(--type-mono)'}}>{formatPrice(portfolio.cash)}</span>
                 </div>
 
                 {portfolio.top.length > 0 ? (
                     <div className="mt-3 space-y-1.5">
                         {portfolio.top.map((h) => (
                             <div key={h.symbol} className="flex items-center justify-between">
-                                <span className="text-xs font-bold text-[#e2e2e8]"
-                                      style={{fontFamily: 'var(--font-jetbrains)'}}>
-                                    {h.symbol} <span className="text-[#849495] font-normal">×{h.quantity}</span>
+                                <span className="text-xs font-bold text-fg"
+                                      style={{fontFamily: 'var(--type-mono)'}}>
+                                    {h.symbol} <span className="text-fg-muted font-normal">×{h.quantity}</span>
                                 </span>
                                 <span className={cn('text-xs', getChangeColorClass(h.unrealizedPnlPct || undefined))}
-                                      style={{fontFamily: 'var(--font-jetbrains)'}}>
+                                      style={{fontFamily: 'var(--type-mono)'}}>
                                     {h.unrealizedPnlPct >= 0 ? '+' : ''}{h.unrealizedPnlPct.toFixed(2)}%
                                 </span>
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <p className="mt-3 text-xs text-[#849495]">No holdings yet — start trading.</p>
+                    <p className="mt-3 text-xs text-fg-muted">No holdings yet — start trading.</p>
                 )}
             </div>
         </Link>

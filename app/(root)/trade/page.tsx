@@ -42,14 +42,14 @@ const TradePage = async ({searchParams}: TradePageProps) => {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-2">
                 <div>
-                    <h1 className="text-2xl font-semibold text-[#e2e2e8] mb-1" style={{fontFamily: 'var(--font-sora)'}}>
+                    <h1 className="text-2xl font-semibold text-fg mb-1" style={{fontFamily: 'var(--type-display)'}}>
                         Trade Desk
                     </h1>
-                    <p className="text-sm text-[#849495]">Paper trading · live prices</p>
+                    <p className="text-sm text-fg-muted">Paper trading · live prices</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <AccountSwitcher accounts={switcherAccounts} activeId={activeId} />
-                    <Link href="/portfolio" className="text-xs text-[#7df4ff] hover:underline" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <Link href="/portfolio" className="text-xs text-brand hover:underline" style={{fontFamily: 'var(--type-mono)'}}>
                         View full portfolio →
                     </Link>
                 </div>
@@ -73,10 +73,10 @@ const TradePage = async ({searchParams}: TradePageProps) => {
             {/* Open positions — compact quick-sell; full holdings & history live on /portfolio */}
             <section className="glass-panel rounded-xl p-5">
                 <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-brand" style={{fontFamily: 'var(--type-mono)'}}>
                         Open Positions
                     </h2>
-                    <Link href="/portfolio" className="text-xs text-[#849495] hover:text-[#7df4ff]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <Link href="/portfolio" className="text-xs text-fg-muted hover:text-brand" style={{fontFamily: 'var(--type-mono)'}}>
                         Full holdings &amp; history →
                     </Link>
                 </div>

@@ -50,13 +50,13 @@ const WatchlistButton = ({
                 className={cn(
                     'inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-all',
                     optimistic
-                        ? 'text-[#7df4ff] hover:bg-[rgba(125,244,255,0.15)]'
-                        : 'text-[#e2e2e8] hover:bg-[rgba(40,42,46,0.8)]',
+                        ? 'text-brand hover:bg-brand/15'
+                        : 'text-fg hover:bg-surface-3/80',
                     isPending && 'opacity-60 cursor-not-allowed',
                 )}
                 style={{
-                    backgroundColor: optimistic ? 'rgba(125, 244, 255, 0.1)' : '#282a2e',
-                    fontFamily: 'var(--font-jetbrains)',
+                    backgroundColor: optimistic ? 'color-mix(in srgb, var(--brand) 10%, transparent)' : 'var(--surface-3)',
+                    fontFamily: 'var(--type-mono)',
                     letterSpacing: '0.02em',
                 }}
                 aria-pressed={optimistic}
@@ -78,10 +78,10 @@ const WatchlistButton = ({
             className={cn(
                 'inline-flex size-8 items-center justify-center rounded-md transition-colors',
                 showTrashIcon && optimistic
-                    ? 'text-[#b9cacb] hover:text-[#ffb4ab] hover:bg-[rgba(255,180,171,0.1)]'
+                    ? 'text-fg-soft hover:text-negative hover:bg-negative/10'
                     : optimistic
-                    ? 'text-[#7df4ff] hover:text-[#00dbe9]'
-                    : 'text-[#849495] hover:text-[#b9cacb]',
+                    ? 'text-brand hover:text-brand-dim'
+                    : 'text-fg-muted hover:text-fg-soft',
                 isPending && 'opacity-60 cursor-not-allowed',
             )}
         >

@@ -18,7 +18,7 @@ const SOURCE_LABELS: Record<SecondOpinionView['source'], string> = {
     manual: 'pasted',
 };
 
-const BUTTON_STYLE = {fontFamily: 'var(--font-jetbrains)', border: '1px solid rgba(125,244,255,0.35)', backgroundColor: 'rgba(0,240,255,0.06)'};
+const BUTTON_STYLE = {fontFamily: 'var(--type-mono)', border: '1px solid color-mix(in srgb, var(--brand) 35%, transparent)', backgroundColor: 'color-mix(in srgb, var(--brand-strong) 6%, transparent)'};
 
 // The text stripping in opinion-text.ts handles the common inline form, but
 // markdown has more ways to make a link than a regex should be trusted with
@@ -125,17 +125,17 @@ const SecondOpinionCard = ({configured, opinion}: {configured: boolean; opinion:
     return (
         <section className="glass-panel rounded-xl p-5">
             <div className="flex items-center justify-between gap-3 mb-3 flex-wrap">
-                <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-brand" style={{fontFamily: 'var(--type-mono)'}}>
                     Claude Second Opinion
                 </h2>
                 {opinion && (
-                    <span className="text-[11px] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <span className="text-[11px] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>
                         {opinion.model} · {SOURCE_LABELS[opinion.source]} · {formatTimeAgo(Math.floor(opinion.generatedAt / 1000))}
                     </span>
                 )}
             </div>
 
-            <p className="text-sm text-[#849495] mb-4">
+            <p className="text-sm text-fg-muted mb-4">
                 A stronger model reads the same theses, decisions and headlines — and argues with them:
                 where the narratives look crowded or stale, what contradicts them, and what to watch next.
                 It only critiques; the deterministic rails still make every trade.
@@ -144,26 +144,26 @@ const SecondOpinionCard = ({configured, opinion}: {configured: boolean; opinion:
             <div className="flex flex-wrap items-center gap-2 mb-4">
                 {configured && (
                     <button type="button" onClick={() => void onAsk()} disabled={busy}
-                            className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-[#002022]"
-                            style={{fontFamily: 'var(--font-jetbrains)', backgroundColor: '#00f0ff'}}>
+                            className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-on-brand"
+                            style={{fontFamily: 'var(--type-mono)', backgroundColor: 'var(--brand-strong)'}}>
                         {pending === 'ask' ? 'Queueing…' : 'Ask Claude (paid API)'}
                     </button>
                 )}
                 <button type="button" onClick={() => void onCopyPrompt()} disabled={busy}
-                        className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-[#7df4ff] transition-all active:scale-[0.98] disabled:opacity-50"
+                        className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-brand transition-all active:scale-[0.98] disabled:opacity-50"
                         style={BUTTON_STYLE}>
                     {pending === 'copy' ? 'Building…' : 'Copy prompt for claude.ai'}
                 </button>
                 {!pasteOpen && (
                     <button type="button" onClick={() => setPasteOpen(true)} disabled={busy}
-                            className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-[#b9cacb] hover:text-[#7df4ff] transition-colors disabled:opacity-50"
-                            style={{fontFamily: 'var(--font-jetbrains)', border: '1px solid rgba(59,73,75,0.4)'}}>
+                            className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-fg-soft hover:text-brand transition-colors disabled:opacity-50"
+                            style={{fontFamily: 'var(--type-mono)', border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)'}}>
                         Paste an answer
                     </button>
                 )}
             </div>
 
-            <p className="text-xs text-[#849495] mb-4" style={{fontFamily: 'var(--font-jetbrains)'}}>
+            <p className="text-xs text-fg-muted mb-4" style={{fontFamily: 'var(--type-mono)'}}>
                 {configured
                     ? 'The API button bills Anthropic per use. To spend a Claude subscription instead, copy the prompt into claude.ai and paste the answer back.'
                     : 'No API key configured — copy the prompt into claude.ai (covered by your Claude subscription) and paste the answer back.'}
@@ -172,33 +172,33 @@ const SecondOpinionCard = ({configured, opinion}: {configured: boolean; opinion:
 
             {promptFallback && (
                 <div className="mb-3">
-                    <label htmlFor="second-opinion-prompt" className="text-[10px] uppercase tracking-[0.1em] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <label htmlFor="second-opinion-prompt" className="text-[10px] uppercase tracking-[0.1em] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>
                         Prompt — select all and copy
                     </label>
                     <textarea id="second-opinion-prompt" readOnly value={promptFallback} rows={6} onFocus={(e) => e.currentTarget.select()}
-                              className="w-full mt-1 rounded-lg px-3 py-2 text-xs text-[#b9cacb] outline-none focus:ring-1 focus:ring-[#7df4ff]"
-                              style={{backgroundColor: '#111318', border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}} />
+                              className="w-full mt-1 rounded-lg px-3 py-2 text-xs text-fg-soft outline-none focus:ring-1 focus:ring-brand"
+                              style={{backgroundColor: 'var(--surface-0)', border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}} />
                 </div>
             )}
 
             {pasteOpen && (
                 <div className="mb-4">
-                    <label htmlFor="second-opinion-answer" className="text-[10px] uppercase tracking-[0.1em] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <label htmlFor="second-opinion-answer" className="text-[10px] uppercase tracking-[0.1em] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>
                         Claude&apos;s answer
                     </label>
                     <textarea id="second-opinion-answer" value={pasted} onChange={(e) => setPasted(e.target.value)} rows={5}
                               placeholder="Paste Claude's answer here…"
-                              className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-[#e2e2e8] outline-none focus:ring-1 focus:ring-[#7df4ff]"
-                              style={{backgroundColor: '#111318', border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}} />
+                              className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-fg outline-none focus:ring-1 focus:ring-brand"
+                              style={{backgroundColor: 'var(--surface-0)', border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}} />
                     <div className="flex items-center gap-2 mt-2">
                         <button type="button" onClick={() => void onSavePasted()} disabled={busy || pasted.trim().length === 0}
-                                className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-[#7df4ff] transition-all active:scale-[0.98] disabled:opacity-50"
+                                className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-brand transition-all active:scale-[0.98] disabled:opacity-50"
                                 style={BUTTON_STYLE}>
                             {pending === 'save' ? 'Saving…' : 'Save opinion'}
                         </button>
                         <button type="button" onClick={() => {setPasteOpen(false); setPromptFallback('');}} disabled={busy}
-                                className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-[#849495] hover:text-[#ffb4ab] transition-colors disabled:opacity-50"
-                                style={{fontFamily: 'var(--font-jetbrains)'}}>
+                                className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-fg-muted hover:text-negative transition-colors disabled:opacity-50"
+                                style={{fontFamily: 'var(--type-mono)'}}>
                             Cancel
                         </button>
                     </div>
@@ -206,11 +206,11 @@ const SecondOpinionCard = ({configured, opinion}: {configured: boolean; opinion:
             )}
 
             {opinion ? (
-                <div className="px-4 py-3 rounded-lg border bg-[rgba(30,32,36,0.4)] border-[rgba(125,244,255,0.15)] text-sm text-[#b9cacb] leading-relaxed [&_p]:mb-2 [&_ul]:mb-2 [&_ul]:pl-4 [&_li]:list-disc">
+                <div className="px-4 py-3 rounded-lg border bg-surface-2/40 border-brand/15 text-sm text-fg-soft leading-relaxed [&_p]:mb-2 [&_ul]:mb-2 [&_ul]:pl-4 [&_li]:list-disc">
                     <ReactMarkdown components={MARKDOWN_COMPONENTS}>{opinion.opinionMd}</ReactMarkdown>
                 </div>
             ) : (
-                <p className="text-sm text-[#849495]">No opinion yet — copy the prompt above, or ask Claude Code to fetch one.</p>
+                <p className="text-sm text-fg-muted">No opinion yet — copy the prompt above, or ask Claude Code to fetch one.</p>
             )}
         </section>
     );

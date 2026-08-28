@@ -43,9 +43,9 @@ const ChatMessage = ({message}: ChatMessageProps) => {
                         : 'rounded-tl-none',
                 )}
                 style={{
-                    backgroundColor: isUser ? 'rgba(0, 240, 255, 0.15)' : '#282a2e',
-                    color: isUser ? '#7df4ff' : '#e2e2e8',
-                    border: isUser ? '1px solid rgba(0, 240, 255, 0.2)' : 'none',
+                    backgroundColor: isUser ? 'color-mix(in srgb, var(--brand-strong) 15%, transparent)' : 'var(--surface-3)',
+                    color: isUser ? 'var(--brand)' : 'var(--fg)',
+                    border: isUser ? '1px solid color-mix(in srgb, var(--brand-strong) 20%, transparent)' : 'none',
                 }}
             >
                 {message.parts.map((part, idx) => {

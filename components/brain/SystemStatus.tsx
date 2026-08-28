@@ -22,18 +22,18 @@ const extractionHint = (status: BrainSystemStatus): string => {
 };
 
 const DOT_COLORS: Record<Health, string> = {
-    ok: '#7df4ff',
+    ok: 'var(--brand)',
     stale: '#ffd700',
-    never: '#ffb4ab',
+    never: 'var(--negative)',
 };
 
 const Stat = ({label, value, hint}: {label: string; value: string; hint?: string}) => (
     <div className="flex flex-col gap-0.5">
-        <span className="text-[10px] uppercase tracking-[0.1em] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+        <span className="text-[10px] uppercase tracking-[0.1em] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>
             {label}
         </span>
-        <span className="text-sm font-semibold text-[#e2e2e8]" style={{fontFamily: 'var(--font-sora)'}}>{value}</span>
-        {hint && <span className="text-[10px] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>{hint}</span>}
+        <span className="text-sm font-semibold text-fg" style={{fontFamily: 'var(--type-display)'}}>{value}</span>
+        {hint && <span className="text-[10px] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>{hint}</span>}
     </div>
 );
 
@@ -43,11 +43,11 @@ const SystemStatus = ({status}: {status: BrainSystemStatus}) => {
     return (
         <section className="glass-panel rounded-xl p-5">
             <div className="flex items-center justify-between mb-4">
-                <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-brand" style={{fontFamily: 'var(--type-mono)'}}>
                     System Status
                 </h2>
                 {anyNever && (
-                    <span className="text-[10px] uppercase tracking-[0.08em] text-[#ffb4ab]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <span className="text-[10px] uppercase tracking-[0.08em] text-negative" style={{fontFamily: 'var(--type-mono)'}}>
                         Some jobs have never run — check the Inngest connection
                     </span>
                 )}
@@ -72,20 +72,20 @@ const SystemStatus = ({status}: {status: BrainSystemStatus}) => {
                     const health = jobHealth(job);
                     return (
                         <div key={job.jobId}
-                             className="flex items-start gap-2.5 px-3 py-2 rounded-lg border bg-[rgba(30,32,36,0.4)] border-[rgba(59,73,75,0.2)]">
+                             className="flex items-start gap-2.5 px-3 py-2 rounded-lg border bg-surface-2/40 border-line-strong/20">
                             <span className="mt-1 inline-block w-2 h-2 rounded-full shrink-0" style={{backgroundColor: DOT_COLORS[health]}} />
                             <div className="min-w-0">
-                                <div className="text-xs font-semibold text-[#e2e2e8]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                                <div className="text-xs font-semibold text-fg" style={{fontFamily: 'var(--type-mono)'}}>
                                     {job.label}
-                                    <span className="ml-2 font-normal text-[#849495]">{job.schedule}</span>
+                                    <span className="ml-2 font-normal text-fg-muted">{job.schedule}</span>
                                 </div>
-                                <div className="text-[11px] text-[#849495] truncate" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                                <div className="text-[11px] text-fg-muted truncate" style={{fontFamily: 'var(--type-mono)'}}>
                                     {job.lastRunAt === null
                                         ? (job.staleAfterHours === Number.POSITIVE_INFINITY ? 'not run yet' : 'never ran')
                                         : `${formatTimeAgo(Math.floor(job.lastRunAt / 1000))}${health === 'stale' ? ' — overdue' : ''}`}
                                 </div>
                                 {job.lastMessage && (
-                                    <div className="text-[11px] text-[#b9cacb] truncate" title={job.lastMessage} style={{fontFamily: 'var(--font-jetbrains)'}}>
+                                    <div className="text-[11px] text-fg-soft truncate" title={job.lastMessage} style={{fontFamily: 'var(--type-mono)'}}>
                                         {job.lastMessage}
                                     </div>
                                 )}

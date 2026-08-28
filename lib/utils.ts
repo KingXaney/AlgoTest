@@ -124,8 +124,8 @@ export const formatChangePercent = (changePercent?: number) => {
 };
 
 export const getChangeColorClass = (changePercent?: number) => {
-  if (!changePercent) return 'text-[#849495]';
-  return changePercent > 0 ? 'text-[#7df4ff]' : 'text-[#ffb4ab]';
+  if (!changePercent) return 'text-fg-muted';
+  return changePercent > 0 ? 'text-positive' : 'text-negative';
 };
 
 export const formatPrice = (price: number) => {

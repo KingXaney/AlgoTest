@@ -32,12 +32,12 @@ const HistoryPage = async () => {
         <div className="min-h-screen space-y-6">
             {/* Page Header */}
             <div className="mb-2">
-                <h1 className="text-2xl font-semibold text-[#e2e2e8] mb-1 tracking-tight"
-                    style={{ fontFamily: 'var(--font-sora)' }}>
+                <h1 className="text-2xl font-semibold text-fg mb-1 tracking-tight"
+                    style={{ fontFamily: 'var(--type-display)' }}>
                     Activity History
                 </h1>
-                <p className="text-sm text-[#849495]"
-                   style={{ fontFamily: 'var(--font-jetbrains)', letterSpacing: '0.02em' }}>
+                <p className="text-sm text-fg-muted"
+                   style={{ fontFamily: 'var(--type-mono)', letterSpacing: '0.02em' }}>
                     Your watchlist timeline and market activity
                 </p>
             </div>
@@ -45,27 +45,27 @@ const HistoryPage = async () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Watchlist activity timeline */}
                 <section className="lg:col-span-1 glass-panel rounded-xl p-6">
-                    <h2 className="text-xs font-bold uppercase tracking-[0.1em] text-[#7df4ff] mb-4"
-                        style={{ fontFamily: 'var(--font-jetbrains)' }}>
+                    <h2 className="text-xs font-bold uppercase tracking-[0.1em] text-brand mb-4"
+                        style={{ fontFamily: 'var(--type-mono)' }}>
                         Watchlist Activity
                     </h2>
 
                     {items.length === 0 ? (
-                        <p className="text-sm text-[#849495]">
+                        <p className="text-sm text-fg-muted">
                             No activity yet. Add a stock to your watchlist to start your timeline.
                         </p>
                     ) : (
-                        <ol className="relative space-y-5 border-l border-[rgba(125,244,255,0.15)] pl-5">
+                        <ol className="relative space-y-5 border-l border-brand/15 pl-5">
                             {items.map((item) => (
                                 <li key={item.symbol} className="relative">
-                                    <span className="absolute -left-[1.4rem] top-1 w-2.5 h-2.5 rounded-full bg-[#7df4ff]" />
+                                    <span className="absolute -left-[1.4rem] top-1 w-2.5 h-2.5 rounded-full bg-brand" />
                                     <Link href={`/stocks/${item.symbol}`} className="group block">
-                                        <p className="text-sm text-[#e2e2e8] group-hover:text-[#7df4ff] transition-colors">
+                                        <p className="text-sm text-fg group-hover:text-brand transition-colors">
                                             Added <span className="font-semibold">{item.symbol}</span>
-                                            <span className="text-[#849495]"> — {item.company}</span>
+                                            <span className="text-fg-muted"> — {item.company}</span>
                                         </p>
-                                        <p className="text-[10px] text-[#849495] mt-0.5"
-                                           style={{ fontFamily: 'var(--font-jetbrains)', letterSpacing: '0.02em' }}>
+                                        <p className="text-[10px] text-fg-muted mt-0.5"
+                                           style={{ fontFamily: 'var(--type-mono)', letterSpacing: '0.02em' }}>
                                             {formatAddedAt(item.addedAt)}
                                         </p>
                                     </Link>
@@ -77,14 +77,14 @@ const HistoryPage = async () => {
 
                 {/* Related market news */}
                 <section className="lg:col-span-2 space-y-4">
-                    <h2 className="text-xs font-bold uppercase tracking-[0.1em] text-[#7df4ff]"
-                        style={{ fontFamily: 'var(--font-jetbrains)' }}>
+                    <h2 className="text-xs font-bold uppercase tracking-[0.1em] text-brand"
+                        style={{ fontFamily: 'var(--type-mono)' }}>
                         {symbols.length > 0 ? 'News For Your Watchlist' : 'Market News'}
                     </h2>
 
                     {news.length === 0 ? (
                         <div className="glass-panel rounded-xl p-6">
-                            <p className="text-sm text-[#849495]">No recent news available right now.</p>
+                            <p className="text-sm text-fg-muted">No recent news available right now.</p>
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

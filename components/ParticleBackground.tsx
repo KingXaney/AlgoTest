@@ -4,7 +4,19 @@ import {useEffect, useRef} from "react";
 
 // Ambient drifting-particle field rendered behind all content — ported from the Stitch
 // "Cyber-Fin Tech Core" reference dashboard. Fixed, full-viewport, non-interactive.
-const ParticleBackground = () => {
+type ParticleBackgroundProps = {
+    color?: string;    // 6-digit hex from the active palette (brand)
+    reduced?: boolean; // the in-app reduce-motion setting; OS preference is honoured too
+};
+
+const hexToRgbTriplet = (hex: string): string => {
+    const m = /^#?([0-9a-f]{6})$/i.exec(hex);
+    if (!m) return '125, 244, 255';
+    const n = parseInt(m[1], 16);
+    return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
+};
+
+const ParticleBackground = ({color = '#7df4ff', reduced = false}: ParticleBackgroundProps) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
     useEffect(() => {
@@ -13,9 +25,10 @@ const ParticleBackground = () => {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        const prefersReducedMotion =
+        const prefersReducedMotion = reduced || (
             typeof window !== 'undefined' &&
-            window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+            window.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
+        const rgb = hexToRgbTriplet(color);
 
         type Particle = {x: number; y: number; vx: number; vy: number; size: number; life: number};
         let particles: Particle[] = [];
@@ -44,7 +57,7 @@ const ParticleBackground = () => {
         const draw = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (const p of particles) {
-                ctx.fillStyle = `rgba(125, 244, 255, ${p.life})`;
+                ctx.fillStyle = `rgba(${rgb}, ${p.life})`;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -59,7 +72,7 @@ const ParticleBackground = () => {
                 if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
                     Object.assign(p, spawn());
                 }
-                ctx.fillStyle = `rgba(125, 244, 255, ${p.life})`;
+                ctx.fillStyle = `rgba(${rgb}, ${p.life})`;
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -70,6 +83,7 @@ const ParticleBackground = () => {
         const onResize = () => {
             resize();
             initParticles();
+            if (prefersReducedMotion) draw();   // resizing clears the canvas; the static frame must be repainted
         };
 
         resize();
@@ -87,7 +101,7 @@ const ParticleBackground = () => {
             cancelAnimationFrame(raf);
             window.removeEventListener('resize', onResize);
         };
-    }, []);
+    }, [color, reduced]);
 
     return <canvas ref={canvasRef} id="bg-canvas" aria-hidden="true" />;
 };

@@ -38,12 +38,12 @@ const RenameDialog = ({accountId, currentName, onClose}: {accountId: string; cur
 
     return (
         <Dialog open onOpenChange={(open) => { if (!open && !submitting) onClose(); }}>
-            <DialogContent className="bg-[#14171b] ring-[rgba(255,255,255,0.06)] sm:max-w-sm">
+            <DialogContent className="bg-surface-1 ring-line sm:max-w-sm">
                 <DialogHeader>
-                    <DialogTitle className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <DialogTitle className="text-sm font-bold uppercase tracking-[0.1em] text-brand" style={{fontFamily: 'var(--type-mono)'}}>
                         Rename Strategy
                     </DialogTitle>
-                    <DialogDescription className="text-[#849495]">Pick a new name for this strategy account.</DialogDescription>
+                    <DialogDescription className="text-fg-muted">Pick a new name for this strategy account.</DialogDescription>
                 </DialogHeader>
                 <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); void onConfirm(); }}>
                     <input
@@ -52,14 +52,14 @@ const RenameDialog = ({accountId, currentName, onClose}: {accountId: string; cur
                         maxLength={40}
                         autoComplete="off"
                         autoFocus
-                        className="w-full rounded-lg px-3 py-2 text-sm text-[#e2e2e8] outline-none"
-                        style={{backgroundColor: '#111318', border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}}
+                        className="w-full rounded-lg px-3 py-2 text-sm text-fg outline-none"
+                        style={{backgroundColor: 'var(--surface-0)', border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}}
                     />
                     <button
                         type="submit"
                         disabled={submitting || !valid}
-                        className="w-full py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-[#002022]"
-                        style={{fontFamily: 'var(--font-jetbrains)', backgroundColor: '#00f0ff'}}
+                        className="w-full py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-on-brand"
+                        style={{fontFamily: 'var(--type-mono)', backgroundColor: 'var(--brand-strong)'}}
                     >
                         {submitting ? 'Renaming…' : 'Rename'}
                     </button>
@@ -93,12 +93,12 @@ const DeleteDialog = ({accountId, accountName, onClose}: {accountId: string; acc
 
     return (
         <Dialog open onOpenChange={(open) => { if (!open && !submitting) onClose(); }}>
-            <DialogContent className="bg-[#14171b] ring-[rgba(255,255,255,0.06)] sm:max-w-sm">
+            <DialogContent className="bg-surface-1 ring-line sm:max-w-sm">
                 <DialogHeader>
-                    <DialogTitle className="text-sm font-bold uppercase tracking-[0.1em] text-[#ffb4ab]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <DialogTitle className="text-sm font-bold uppercase tracking-[0.1em] text-negative" style={{fontFamily: 'var(--type-mono)'}}>
                         Delete “{accountName}”?
                     </DialogTitle>
-                    <DialogDescription className="text-[#849495]">
+                    <DialogDescription className="text-fg-muted">
                         This permanently removes the account, its positions, its trade history and its performance record. This cannot be undone.
                     </DialogDescription>
                 </DialogHeader>
@@ -106,8 +106,8 @@ const DeleteDialog = ({accountId, accountName, onClose}: {accountId: string; acc
                     type="button"
                     onClick={() => void onConfirm()}
                     disabled={submitting}
-                    className="w-full py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-[#690005]"
-                    style={{fontFamily: 'var(--font-jetbrains)', backgroundColor: '#ffb4ab'}}
+                    className="w-full py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-on-negative"
+                    style={{fontFamily: 'var(--type-mono)', backgroundColor: 'var(--negative)'}}
                 >
                     {submitting ? 'Deleting…' : 'Delete Strategy'}
                 </button>
@@ -128,19 +128,19 @@ const ManageAccountMenu = ({accountId, accountName, canDelete}: {accountId: stri
                     <button
                         type="button"
                         aria-label="Manage strategy account"
-                        className="px-2 py-2 rounded-lg text-[#849495] hover:text-[#e2e2e8] transition-colors"
-                        style={{border: '1px solid rgba(59,73,75,0.4)'}}
+                        className="px-2 py-2 rounded-lg text-fg-muted hover:text-fg transition-colors"
+                        style={{border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)'}}
                     >
                         <span className="material-symbols-outlined text-base">more_vert</span>
                     </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-[#14171b] border-[rgba(59,73,75,0.5)]">
-                    <DropdownMenuItem onSelect={() => setDialog('rename')} className="cursor-pointer text-[#e2e2e8] focus:bg-[rgba(0,240,255,0.06)]">
-                        <span className="text-sm" style={{fontFamily: 'var(--font-jetbrains)'}}>Rename</span>
+                <DropdownMenuContent align="end" className="bg-surface-1 border-line-strong/50">
+                    <DropdownMenuItem onSelect={() => setDialog('rename')} className="cursor-pointer text-fg focus:bg-brand-strong/6">
+                        <span className="text-sm" style={{fontFamily: 'var(--type-mono)'}}>Rename</span>
                     </DropdownMenuItem>
                     {canDelete && (
-                        <DropdownMenuItem onSelect={() => setDialog('delete')} className="cursor-pointer text-[#ffb4ab] focus:bg-[rgba(255,180,171,0.08)]">
-                            <span className="text-sm" style={{fontFamily: 'var(--font-jetbrains)'}}>Delete</span>
+                        <DropdownMenuItem onSelect={() => setDialog('delete')} className="cursor-pointer text-negative focus:bg-negative/8">
+                            <span className="text-sm" style={{fontFamily: 'var(--type-mono)'}}>Delete</span>
                         </DropdownMenuItem>
                     )}
                 </DropdownMenuContent>

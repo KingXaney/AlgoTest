@@ -57,6 +57,9 @@ export const CONDITION_OPTIONS = [
     { value: 'less', label: 'Less than (<)' },
 ];
 
+// TradingView embed script base; each widget appends its script name (e.g. `stock-heatmap.js`).
+export const TV_SCRIPT_BASE = 'https://s3.tradingview.com/external-embedding/embed-widget-';
+
 // TradingView Charts
 export const MARKET_OVERVIEW_WIDGET_CONFIG = {
     colorTheme: 'dark', // dark mode

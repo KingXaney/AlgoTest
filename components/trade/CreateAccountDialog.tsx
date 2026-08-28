@@ -39,19 +39,19 @@ const CreateAccountDialog = ({onClose}: {onClose: () => void}) => {
 
     return (
         <Dialog open onOpenChange={(open) => { if (!open && !submitting) onClose(); }}>
-            <DialogContent className="bg-[#14171b] ring-[rgba(255,255,255,0.06)] sm:max-w-sm">
+            <DialogContent className="bg-surface-1 ring-line sm:max-w-sm">
                 <DialogHeader>
-                    <DialogTitle className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <DialogTitle className="text-sm font-bold uppercase tracking-[0.1em] text-brand" style={{fontFamily: 'var(--type-mono)'}}>
                         New Strategy Account
                     </DialogTitle>
-                    <DialogDescription className="text-[#849495]">
+                    <DialogDescription className="text-fg-muted">
                         Each strategy gets its own paper account so you can compare how they perform. Returns are tracked in %, so any starting balance stays comparable.
                     </DialogDescription>
                 </DialogHeader>
 
                 <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); void onConfirm(); }}>
                     <div>
-                        <label htmlFor="account-name" className="text-[10px] uppercase tracking-[0.1em] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                        <label htmlFor="account-name" className="text-[10px] uppercase tracking-[0.1em] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>
                             Strategy name
                         </label>
                         <input
@@ -62,13 +62,13 @@ const CreateAccountDialog = ({onClose}: {onClose: () => void}) => {
                             maxLength={40}
                             autoComplete="off"
                             autoFocus
-                            className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-[#e2e2e8] outline-none"
-                            style={{backgroundColor: '#111318', border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}}
+                            className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-fg outline-none"
+                            style={{backgroundColor: 'var(--surface-0)', border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}}
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="account-balance" className="text-[10px] uppercase tracking-[0.1em] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                        <label htmlFor="account-balance" className="text-[10px] uppercase tracking-[0.1em] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>
                             Starting balance ($)
                         </label>
                         <input
@@ -77,11 +77,11 @@ const CreateAccountDialog = ({onClose}: {onClose: () => void}) => {
                             onChange={(e) => setBalance(e.target.value.replace(/[^0-9]/g, ''))}
                             inputMode="numeric"
                             autoComplete="off"
-                            className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-[#e2e2e8] outline-none"
-                            style={{backgroundColor: '#111318', border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}}
+                            className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-fg outline-none"
+                            style={{backgroundColor: 'var(--surface-0)', border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}}
                         />
                         {!balanceValid && balance !== '' && (
-                            <p className="mt-1 text-xs text-[#ffb4ab]">
+                            <p className="mt-1 text-xs text-negative">
                                 Between ${MIN_STARTING_BALANCE.toLocaleString('en-US')} and ${MAX_STARTING_BALANCE.toLocaleString('en-US')}
                             </p>
                         )}
@@ -90,11 +90,11 @@ const CreateAccountDialog = ({onClose}: {onClose: () => void}) => {
                     <button
                         type="submit"
                         disabled={submitting || !valid}
-                        className="w-full py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-[#002022]"
+                        className="w-full py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-on-brand"
                         style={{
-                            fontFamily: 'var(--font-jetbrains)',
-                            backgroundColor: '#00f0ff',
-                            boxShadow: '0 0 15px rgba(0,240,255,0.3)',
+                            fontFamily: 'var(--type-mono)',
+                            backgroundColor: 'var(--brand-strong)',
+                            boxShadow: '0 0 15px color-mix(in srgb, var(--brand-strong) 30%, transparent)',
                         }}
                     >
                         {submitting ? 'Creating…' : `Create with $${(balanceNum || 0).toLocaleString('en-US')}`}

@@ -42,11 +42,11 @@ const PerformanceChart = ({series, accountName}: {series: PerfPoint[]; accountNa
     if (!geometry) {
         return (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-                <span className="material-symbols-outlined text-3xl text-[#849495] mb-2">monitoring</span>
-                <p className="text-sm text-[#849495]">
+                <span className="material-symbols-outlined text-3xl text-fg-muted mb-2">monitoring</span>
+                <p className="text-sm text-fg-muted">
                     Collecting daily performance data — check back tomorrow.
                 </p>
-                <p className="text-xs text-[#849495] mt-1" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                <p className="text-xs text-fg-muted mt-1" style={{fontFamily: 'var(--type-mono)'}}>
                     A value snapshot is recorded every market day at close.
                 </p>
             </div>
@@ -68,20 +68,20 @@ const PerformanceChart = ({series, accountName}: {series: PerfPoint[]; accountNa
     return (
         <div>
             {/* Legend + current values */}
-            <div className="flex flex-wrap items-center gap-4 mb-3 text-xs" style={{fontFamily: 'var(--font-jetbrains)'}}>
+            <div className="flex flex-wrap items-center gap-4 mb-3 text-xs" style={{fontFamily: 'var(--type-mono)'}}>
                 <span className="flex items-center gap-1.5">
-                    <span className="inline-block w-3 h-0.5 rounded" style={{backgroundColor: '#7df4ff'}} />
-                    <span className="text-[#e2e2e8]">{accountName}</span>
-                    <span className="text-[#7df4ff]">{formatPct((hover ?? last).accountPct)}</span>
+                    <span className="inline-block w-3 h-0.5 rounded" style={{backgroundColor: 'var(--brand)'}} />
+                    <span className="text-fg">{accountName}</span>
+                    <span className="text-brand">{formatPct((hover ?? last).accountPct)}</span>
                 </span>
                 <span className="flex items-center gap-1.5">
-                    <span className="inline-block w-3 h-0.5 rounded" style={{backgroundColor: '#849495'}} />
-                    <span className="text-[#849495]">S&amp;P 500 (SPY)</span>
-                    <span className="text-[#b9cacb]">
+                    <span className="inline-block w-3 h-0.5 rounded" style={{backgroundColor: 'var(--fg-muted)'}} />
+                    <span className="text-fg-muted">S&amp;P 500 (SPY)</span>
+                    <span className="text-fg-soft">
                         {(hover ?? last).benchmarkPct === null ? '—' : formatPct((hover ?? last).benchmarkPct as number)}
                     </span>
                 </span>
-                <span className="ml-auto text-[#849495]">{(hover ?? last).date}</span>
+                <span className="ml-auto text-fg-muted">{(hover ?? last).date}</span>
             </div>
 
             <svg
@@ -95,29 +95,29 @@ const PerformanceChart = ({series, accountName}: {series: PerfPoint[]; accountNa
             >
                 {/* Zero line */}
                 <line x1={PAD_X} x2={WIDTH - PAD_X} y1={geometry.zeroY} y2={geometry.zeroY}
-                      stroke="rgba(59,73,75,0.5)" strokeDasharray="4 4" strokeWidth="1" />
+                      className="stroke-line-strong/50" strokeDasharray="4 4" strokeWidth="1" />
                 <text x={PAD_X - 6} y={geometry.zeroY + 3} textAnchor="end" fontSize="9"
-                      fill="#849495" fontFamily="var(--font-jetbrains)">0%</text>
+                      className="fill-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>0%</text>
                 <text x={PAD_X - 6} y={PAD_Y + 3} textAnchor="end" fontSize="9"
-                      fill="#849495" fontFamily="var(--font-jetbrains)">{formatPct(geometry.max)}</text>
+                      className="fill-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>{formatPct(geometry.max)}</text>
                 <text x={PAD_X - 6} y={HEIGHT - PAD_Y + 3} textAnchor="end" fontSize="9"
-                      fill="#849495" fontFamily="var(--font-jetbrains)">{formatPct(geometry.min)}</text>
+                      className="fill-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>{formatPct(geometry.min)}</text>
 
                 {/* Benchmark line (under the account line) */}
                 {geometry.benchPath && (
-                    <path d={geometry.benchPath} fill="none" stroke="#849495" strokeWidth="1.25" opacity="0.9" />
+                    <path d={geometry.benchPath} fill="none" className="stroke-fg-muted" strokeWidth="1.25" opacity="0.9" />
                 )}
                 {/* Account line */}
-                <path d={geometry.accountPath} fill="none" stroke="#7df4ff" strokeWidth="1.75" />
+                <path d={geometry.accountPath} fill="none" className="stroke-brand" strokeWidth="1.75" />
 
                 {/* Hover crosshair */}
                 {hover && hoverIdx !== null && (
                     <g>
                         <line x1={geometry.x(hoverIdx)} x2={geometry.x(hoverIdx)} y1={PAD_Y} y2={HEIGHT - PAD_Y}
-                              stroke="rgba(125,244,255,0.35)" strokeWidth="1" />
-                        <circle cx={geometry.x(hoverIdx)} cy={geometry.y(hover.accountPct)} r="3" fill="#7df4ff" />
+                              className="stroke-brand/35" strokeWidth="1" />
+                        <circle cx={geometry.x(hoverIdx)} cy={geometry.y(hover.accountPct)} r="3" className="fill-brand" />
                         {hover.benchmarkPct !== null && (
-                            <circle cx={geometry.x(hoverIdx)} cy={geometry.y(hover.benchmarkPct)} r="2.5" fill="#849495" />
+                            <circle cx={geometry.x(hoverIdx)} cy={geometry.y(hover.benchmarkPct)} r="2.5" className="fill-fg-muted" />
                         )}
                     </g>
                 )}

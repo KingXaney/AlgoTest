@@ -50,8 +50,8 @@ const AccountComparisonTable = ({rows, activeId}: {rows: ComparisonRow[]; active
 
     return (
         <div className="space-y-2">
-            <div className="hidden md:grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-2 border-b border-[rgba(59,73,75,0.3)]"
-                 style={{fontFamily: 'var(--font-jetbrains)', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: '#849495'}}>
+            <div className="hidden md:grid grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-4 px-4 py-2 border-b border-line-strong/30"
+                 style={{fontFamily: 'var(--type-mono)', fontSize: '10px', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--fg-muted)'}}>
                 <div>Strategy</div>
                 <div className="text-right">Value</div>
                 <div className="text-right">Total Return</div>
@@ -68,31 +68,31 @@ const AccountComparisonTable = ({rows, activeId}: {rows: ComparisonRow[]; active
                     className={cn(
                         'w-full grid grid-cols-2 md:grid-cols-[2fr_1fr_1fr_1fr_1fr] gap-2 md:gap-4 items-center px-4 py-3 rounded-xl border text-left transition-colors disabled:opacity-60',
                         row.id === activeId
-                            ? 'bg-[rgba(0,240,255,0.06)] border-[rgba(125,244,255,0.25)]'
-                            : 'bg-[rgba(30,32,36,0.4)] border-[rgba(59,73,75,0.2)] hover:border-[rgba(125,244,255,0.3)]',
+                            ? 'bg-brand-strong/6 border-brand/25'
+                            : 'bg-surface-2/40 border-line-strong/20 hover:border-brand/30',
                     )}
                 >
                     <div className="flex items-center gap-2">
-                        <span className="text-xs w-4 text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>{i + 1}</span>
-                        <span className={cn('text-sm font-semibold', row.id === activeId ? 'text-[#7df4ff]' : 'text-[#e2e2e8]')}
-                              style={{fontFamily: 'var(--font-sora)'}}>
+                        <span className="text-xs w-4 text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>{i + 1}</span>
+                        <span className={cn('text-sm font-semibold', row.id === activeId ? 'text-brand' : 'text-fg')}
+                              style={{fontFamily: 'var(--type-display)'}}>
                             {row.name}
                         </span>
                     </div>
-                    <div className="text-right text-sm text-[#e2e2e8]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <div className="text-right text-sm text-fg" style={{fontFamily: 'var(--type-mono)'}}>
                         {formatPrice(row.totalValue)}
                     </div>
                     <div className={cn('text-right text-sm', getChangeColorClass(row.totalReturnPct || undefined))}
-                         style={{fontFamily: 'var(--font-jetbrains)'}}>
+                         style={{fontFamily: 'var(--type-mono)'}}>
                         {row.totalReturnPct >= 0 ? '+' : ''}{row.totalReturnPct.toFixed(2)}%
                     </div>
-                    <div className="text-right text-sm text-[#b9cacb] hidden md:block" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <div className="text-right text-sm text-fg-soft hidden md:block" style={{fontFamily: 'var(--type-mono)'}}>
                         {row.winRatePct === null ? '—' : `${row.winRatePct.toFixed(0)}%`}
                     </div>
-                    <div className="text-right text-sm hidden md:block" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <div className="text-right text-sm hidden md:block" style={{fontFamily: 'var(--type-mono)'}}>
                         {row.maxDrawdownPct === null
-                            ? <span className="text-[#b9cacb]">—</span>
-                            : <span className={row.maxDrawdownPct > 0 ? 'text-[#ffb4ab]' : 'text-[#b9cacb]'}>−{row.maxDrawdownPct.toFixed(2)}%</span>}
+                            ? <span className="text-fg-soft">—</span>
+                            : <span className={row.maxDrawdownPct > 0 ? 'text-negative' : 'text-fg-soft'}>−{row.maxDrawdownPct.toFixed(2)}%</span>}
                     </div>
                 </button>
             ))}

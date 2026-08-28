@@ -14,12 +14,12 @@ function Header({user, initialStocks}: HeaderProps) {
                 {/* Brand */}
                 <div className="flex items-center gap-8">
                     <Link href="/" className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-[#00f0ff]"
+                        <span className="material-symbols-outlined text-brand-strong"
                               style={{ fontVariationSettings: "'FILL' 1" }}>
                             terminal
                         </span>
-                        <span className="text-xl font-semibold tracking-tighter text-[#7df4ff]"
-                              style={{ fontFamily: 'var(--font-sora)' }}>
+                        <span className="text-xl font-semibold tracking-tighter text-brand"
+                              style={{ fontFamily: 'var(--type-display)' }}>
                             AeroTrade
                         </span>
                     </Link>

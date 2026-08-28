@@ -35,8 +35,8 @@ const ResetAccountButton = ({accountId}: {accountId: string}) => {
             onClick={onReset}
             onBlur={() => setConfirming(false)}
             disabled={busy}
-            className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-[#b9cacb] hover:text-[#ffb4ab] transition-colors disabled:opacity-50"
-            style={{border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}}
+            className="px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-fg-soft hover:text-negative transition-colors disabled:opacity-50"
+            style={{border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}}
         >
             {busy ? 'Resetting…' : confirming ? 'Click to confirm' : 'Reset Strategy'}
         </button>
