@@ -61,39 +61,39 @@ const AccountSwitcher = ({accounts, activeId}: {accounts: SwitcherAccount[]; act
                     <button
                         type="button"
                         disabled={switching}
-                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-[0.1em] text-[#e2e2e8] hover:text-[#7df4ff] transition-colors disabled:opacity-50"
-                        style={{border: '1px solid rgba(59,73,75,0.4)', backgroundColor: 'rgba(30,32,36,0.4)', fontFamily: 'var(--font-jetbrains)'}}
+                        className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold uppercase tracking-[0.1em] text-fg hover:text-brand transition-colors disabled:opacity-50"
+                        style={{border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', backgroundColor: 'color-mix(in srgb, var(--surface-2) 40%, transparent)', fontFamily: 'var(--type-mono)'}}
                     >
                         <span className="material-symbols-outlined text-base">account_tree</span>
                         {active?.name ?? 'Strategy'}
                         <span className="material-symbols-outlined text-base">expand_more</span>
                     </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-[#14171b] border-[rgba(59,73,75,0.5)] min-w-[220px]">
+                <DropdownMenuContent align="end" className="bg-surface-1 border-line-strong/50 min-w-[220px]">
                     {accounts.map((a) => (
                         <DropdownMenuItem
                             key={a.id}
                             onSelect={() => void onPick(a.id)}
-                            className="flex items-center justify-between gap-4 cursor-pointer focus:bg-[rgba(0,240,255,0.06)]"
+                            className="flex items-center justify-between gap-4 cursor-pointer focus:bg-brand-strong/6"
                         >
-                            <span className={cn('text-sm', a.id === activeId ? 'text-[#7df4ff] font-bold' : 'text-[#e2e2e8]')}
-                                  style={{fontFamily: 'var(--font-jetbrains)'}}>
+                            <span className={cn('text-sm', a.id === activeId ? 'text-brand font-bold' : 'text-fg')}
+                                  style={{fontFamily: 'var(--type-mono)'}}>
                                 {a.name}
                             </span>
                             {typeof a.totalReturnPct === 'number' && (
                                 <span className={cn('text-xs', getChangeColorClass(a.totalReturnPct || undefined))}
-                                      style={{fontFamily: 'var(--font-jetbrains)'}}>
+                                      style={{fontFamily: 'var(--type-mono)'}}>
                                     {formatChangePercent(a.totalReturnPct) || '0.00%'}
                                 </span>
                             )}
                         </DropdownMenuItem>
                     ))}
-                    <DropdownMenuSeparator className="bg-[rgba(59,73,75,0.4)]" />
+                    <DropdownMenuSeparator className="bg-line-strong/40" />
                     <DropdownMenuItem
                         onSelect={() => setCreating(true)}
-                        className="cursor-pointer text-[#7df4ff] focus:bg-[rgba(0,240,255,0.06)]"
+                        className="cursor-pointer text-brand focus:bg-brand-strong/6"
                     >
-                        <span className="text-sm" style={{fontFamily: 'var(--font-jetbrains)'}}>＋ New strategy account</span>
+                        <span className="text-sm" style={{fontFamily: 'var(--type-mono)'}}>＋ New strategy account</span>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

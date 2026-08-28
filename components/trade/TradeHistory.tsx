@@ -5,7 +5,7 @@ const formatWhen = (ms: number) =>
 
 const TradeHistory = ({trades}: {trades: PaperTradeRecord[]}) => {
     if (trades.length === 0) {
-        return <p className="text-sm text-[#849495] p-4">No trades yet. Place your first order to get started.</p>;
+        return <p className="text-sm text-fg-muted p-4">No trades yet. Place your first order to get started.</p>;
     }
 
     return (
@@ -14,24 +14,24 @@ const TradeHistory = ({trades}: {trades: PaperTradeRecord[]}) => {
                 const isBuy = t.side === 'buy';
                 return (
                     <div key={t.id}
-                         className="flex items-center justify-between px-4 py-2.5 rounded-lg border bg-[rgba(30,32,36,0.4)] border-[rgba(59,73,75,0.2)]">
+                         className="flex items-center justify-between px-4 py-2.5 rounded-lg border bg-surface-2/40 border-line-strong/20">
                         <div className="flex items-center gap-3">
                             <span className={cn(
                                 'px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border',
                                 isBuy
-                                    ? 'bg-[rgba(125,244,255,0.1)] text-[#7df4ff] border-[rgba(125,244,255,0.2)]'
-                                    : 'bg-[rgba(255,180,171,0.1)] text-[#ffb4ab] border-[rgba(255,180,171,0.2)]',
-                            )} style={{fontFamily: 'var(--font-jetbrains)'}}>
+                                    ? 'bg-brand/10 text-brand border-brand/20'
+                                    : 'bg-negative/10 text-negative border-negative/20',
+                            )} style={{fontFamily: 'var(--type-mono)'}}>
                                 {t.side}
                             </span>
                             <div>
-                                <span className="text-sm font-bold text-[#e2e2e8]" style={{fontFamily: 'var(--font-jetbrains)'}}>{t.symbol}</span>
-                                <span className="text-xs text-[#849495] ml-2">{t.quantity} @ {formatPrice(t.price)}</span>
+                                <span className="text-sm font-bold text-fg" style={{fontFamily: 'var(--type-mono)'}}>{t.symbol}</span>
+                                <span className="text-xs text-fg-muted ml-2">{t.quantity} @ {formatPrice(t.price)}</span>
                             </div>
                         </div>
                         <div className="text-right">
-                            <div className="text-sm text-[#e2e2e8]" style={{fontFamily: 'var(--font-jetbrains)'}}>{formatPrice(t.total)}</div>
-                            <div className="text-[10px] text-[#849495]">
+                            <div className="text-sm text-fg" style={{fontFamily: 'var(--type-mono)'}}>{formatPrice(t.total)}</div>
+                            <div className="text-[10px] text-fg-muted">
                                 {formatWhen(t.createdAt)}
                                 {typeof t.realizedPnl === 'number' && (
                                     <span className={cn('ml-2', getChangeColorClass(t.realizedPnl || undefined))}>

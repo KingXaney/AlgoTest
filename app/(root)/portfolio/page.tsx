@@ -58,10 +58,10 @@ const PortfolioPage = async ({searchParams}: PortfolioPageProps) => {
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-2">
                 <div>
-                    <h1 className="text-2xl font-semibold text-[#e2e2e8] mb-1" style={{fontFamily: 'var(--font-sora)'}}>
+                    <h1 className="text-2xl font-semibold text-fg mb-1" style={{fontFamily: 'var(--type-display)'}}>
                         {account.name}
                     </h1>
-                    <p className="text-sm text-[#849495]">
+                    <p className="text-sm text-fg-muted">
                         {count === 0 ? 'No open positions yet' : `${count} ${count === 1 ? 'holding' : 'holdings'} · live valuation`}
                     </p>
                 </div>
@@ -72,7 +72,7 @@ const PortfolioPage = async ({searchParams}: PortfolioPageProps) => {
                     <Link
                         href="/trade"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-[0.1em] transition-all active:scale-[0.98]"
-                        style={{fontFamily: 'var(--font-jetbrains)', backgroundColor: '#7df4ff', color: '#04212a'}}
+                        style={{fontFamily: 'var(--type-mono)', backgroundColor: 'var(--brand)', color: 'var(--on-brand)'}}
                     >
                         <span className="material-symbols-outlined text-base">candlestick_chart</span>
                         Trade Desk
@@ -84,7 +84,7 @@ const PortfolioPage = async ({searchParams}: PortfolioPageProps) => {
             {/* Which strategy wins — all accounts side by side */}
             {all.length > 1 && (
                 <section className="glass-panel rounded-xl p-5">
-                    <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff] mb-4" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-brand mb-4" style={{fontFamily: 'var(--type-mono)'}}>
                         Strategy Comparison
                     </h2>
                     <AccountComparisonTable rows={comparisonRows} activeId={account.id} />
@@ -95,7 +95,7 @@ const PortfolioPage = async ({searchParams}: PortfolioPageProps) => {
             {analytics && (
                 <>
                     <section className="glass-panel rounded-xl p-5">
-                        <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff] mb-4" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                        <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-brand mb-4" style={{fontFamily: 'var(--type-mono)'}}>
                             Performance vs S&amp;P 500
                         </h2>
                         <PerformanceChart series={analytics.series} accountName={account.name} />
@@ -109,7 +109,7 @@ const PortfolioPage = async ({searchParams}: PortfolioPageProps) => {
 
             {/* Holdings */}
             <section className="glass-panel rounded-xl p-5">
-                <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff] mb-4" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-brand mb-4" style={{fontFamily: 'var(--type-mono)'}}>
                     Holdings
                 </h2>
                 <PositionsTable positions={portfolio.positions} accountId={account.id} />
@@ -117,7 +117,7 @@ const PortfolioPage = async ({searchParams}: PortfolioPageProps) => {
 
             {/* Trade history */}
             <section className="glass-panel rounded-xl p-5">
-                <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff] mb-4" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-brand mb-4" style={{fontFamily: 'var(--type-mono)'}}>
                     Trade History
                 </h2>
                 <TradeHistory trades={trades} />

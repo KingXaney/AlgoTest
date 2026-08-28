@@ -11,20 +11,20 @@ const OpenPositionsStrip = ({positions, accountId}: {positions: EnrichedPosition
     const [sellTarget, setSellTarget] = useState<EnrichedPosition | null>(null);
 
     if (positions.length === 0) {
-        return <p className="text-sm text-[#849495]">No open positions yet. Place an order to get started.</p>;
+        return <p className="text-sm text-fg-muted">No open positions yet. Place an order to get started.</p>;
     }
 
     return (
         <div className="flex gap-2 overflow-x-auto pb-1">
             {positions.map((p) => (
                 <div key={p.symbol}
-                     className="flex items-center gap-3 px-3 py-2 rounded-lg border bg-[rgba(30,32,36,0.4)] border-[rgba(59,73,75,0.25)] shrink-0">
+                     className="flex items-center gap-3 px-3 py-2 rounded-lg border bg-surface-2/40 border-line-strong/25 shrink-0">
                     <div className="flex flex-col">
-                        <span className="text-xs font-bold text-[#e2e2e8]" style={{fontFamily: 'var(--font-jetbrains)'}}>
-                            {p.symbol} <span className="text-[#849495] font-normal">×{p.quantity}</span>
+                        <span className="text-xs font-bold text-fg" style={{fontFamily: 'var(--type-mono)'}}>
+                            {p.symbol} <span className="text-fg-muted font-normal">×{p.quantity}</span>
                         </span>
                         <span className={cn('text-[11px]', getChangeColorClass(p.unrealizedPnlPct || undefined))}
-                              style={{fontFamily: 'var(--font-jetbrains)'}}>
+                              style={{fontFamily: 'var(--type-mono)'}}>
                             {p.unrealizedPnlPct >= 0 ? '+' : ''}{p.unrealizedPnlPct.toFixed(2)}%
                         </span>
                     </div>
@@ -32,7 +32,7 @@ const OpenPositionsStrip = ({positions, accountId}: {positions: EnrichedPosition
                         type="button"
                         onClick={() => setSellTarget(p)}
                         className="px-2.5 py-1 rounded text-[11px] font-bold uppercase tracking-wider transition-colors"
-                        style={{color: '#ffb4ab', border: '1px solid rgba(255,180,171,0.3)', backgroundColor: 'rgba(255,180,171,0.06)', fontFamily: 'var(--font-jetbrains)'}}
+                        style={{color: 'var(--negative)', border: '1px solid color-mix(in srgb, var(--negative) 30%, transparent)', backgroundColor: 'color-mix(in srgb, var(--negative) 6%, transparent)', fontFamily: 'var(--type-mono)'}}
                     >
                         Sell
                     </button>

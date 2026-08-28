@@ -18,7 +18,7 @@ const RING_RADII: Record<BrainEntityType, number> = {theme: 70, sector: 130, tic
 const MIN_NODE_R = 6;
 const MAX_NODE_R = 22;
 
-const sentimentColor = (s: number) => (s > 0.05 ? '#7df4ff' : s < -0.05 ? '#ffb4ab' : '#849495');
+const sentimentColor = (s: number) => (s > 0.05 ? 'var(--positive)' : s < -0.05 ? 'var(--negative)' : 'var(--fg-muted)');
 
 const BrainGraph = ({nodes, edges}: {nodes: GraphNode[]; edges: GraphEdge[]}) => {
     const router = useRouter();
@@ -51,8 +51,8 @@ const BrainGraph = ({nodes, edges}: {nodes: GraphNode[]; edges: GraphEdge[]}) =>
     if (nodes.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-                <span className="material-symbols-outlined text-3xl text-[#849495] mb-2">neurology</span>
-                <p className="text-sm text-[#849495]">The brain is empty — it fills up as daily news is ingested.</p>
+                <span className="material-symbols-outlined text-3xl text-fg-muted mb-2">neurology</span>
+                <p className="text-sm text-fg-muted">The brain is empty — it fills up as daily news is ingested.</p>
             </div>
         );
     }
@@ -66,7 +66,7 @@ const BrainGraph = ({nodes, edges}: {nodes: GraphNode[]; edges: GraphEdge[]}) =>
                 {/* Ring guides */}
                 {(['theme', 'sector', 'ticker'] as const).map((type) => (
                     <circle key={type} cx={CX} cy={CY} r={RING_RADII[type]} fill="none"
-                            stroke="rgba(59,73,75,0.25)" strokeDasharray="3 5" strokeWidth="1" />
+                            className="stroke-line-strong/25" strokeDasharray="3 5" strokeWidth="1" />
                 ))}
 
                 {/* Edges */}
@@ -77,7 +77,7 @@ const BrainGraph = ({nodes, edges}: {nodes: GraphNode[]; edges: GraphEdge[]}) =>
                     const active = hoverKey === e.source || hoverKey === e.target;
                     return (
                         <line key={`${e.source}|${e.target}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-                              stroke={active ? '#7df4ff' : '#3b494b'}
+                              style={{stroke: active ? 'var(--brand)' : 'var(--line-strong)'}}
                               strokeOpacity={active ? 0.8 : 0.25 + 0.5 * (e.weight / layout.maxEdge)}
                               strokeWidth={active ? 1.5 : 1} />
                     );
@@ -91,20 +91,18 @@ const BrainGraph = ({nodes, edges}: {nodes: GraphNode[]; edges: GraphEdge[]}) =>
                        onClick={() => router.push(`/brain?entity=${encodeURIComponent(node.key)}`)}
                        style={{cursor: 'pointer'}}>
                         <circle cx={x} cy={y} r={r}
-                                fill={sentimentColor(node.sentimentSlow)}
+                                style={{fill: sentimentColor(node.sentimentSlow), stroke: sentimentColor(node.sentimentSlow)}}
                                 fillOpacity={node.thesisSince !== null ? 0.35 : 0.15}
-                                stroke={sentimentColor(node.sentimentSlow)}
                                 strokeWidth={node.thesisSince !== null ? 2 : 1} />
                         <text x={x} y={y + r + 11} textAnchor="middle" fontSize="9"
-                              fill={hoverKey === node.key ? '#e2e2e8' : '#849495'}
-                              fontFamily="var(--font-jetbrains)">
+                              style={{fill: hoverKey === node.key ? 'var(--fg)' : 'var(--fg-muted)', fontFamily: 'var(--type-mono)'}}>
                             {node.displayName.length > 14 ? `${node.displayName.slice(0, 13)}…` : node.displayName}
                         </text>
                     </g>
                 ))}
             </svg>
 
-            <div className="flex items-center justify-between mt-2 text-[10px] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+            <div className="flex items-center justify-between mt-2 text-[10px] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>
                 <span>rings: themes · sectors · tickers — size = persistent attention, bold ring = active thesis</span>
                 <span>{hovered ? `${hovered.node.displayName} · weight ${hovered.node.weightSlow.toFixed(1)}` : 'click a node for evidence'}</span>
             </div>

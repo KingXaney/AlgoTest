@@ -29,7 +29,7 @@ const MarketsTabs = () => {
 
     return (
         <section className="glass-panel rounded-xl p-4 md:p-6">
-            <div className="flex gap-1 mb-5 p-1 rounded-lg w-fit" style={{backgroundColor: '#111318'}}>
+            <div className="flex gap-1 mb-5 p-1 rounded-lg w-fit" style={{backgroundColor: 'var(--surface-0)'}}>
                 {TABS.map((t) => (
                     <button
                         key={t.id}
@@ -37,9 +37,9 @@ const MarketsTabs = () => {
                         onClick={() => setActive(t.id)}
                         className={cn(
                             'px-4 py-1.5 rounded-md text-xs font-semibold transition-colors',
-                            active === t.id ? 'bg-[#7df4ff] text-[#04212a]' : 'text-[#849495] hover:text-[#e2e2e8]',
+                            active === t.id ? 'bg-brand text-on-brand' : 'text-fg-muted hover:text-fg',
                         )}
-                        style={{fontFamily: 'var(--font-jetbrains)'}}
+                        style={{fontFamily: 'var(--type-mono)'}}
                     >
                         {t.label}
                     </button>

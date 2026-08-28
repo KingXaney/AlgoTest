@@ -4,9 +4,11 @@ import {auth} from "@/lib/better-auth/auth";
 import {headers} from "next/headers";
 import {redirect} from "next/navigation";
 import {searchStocks} from "@/lib/actions/finnhub.actions";
-import {getWatchlistSymbolsByUserId} from "@/lib/actions/watchlist.actions";
+import {getCachedWatchlistSymbols} from "@/lib/dashboard/cached";
 import {aggregatePortfolios, getPortfoliosForUser} from "@/lib/trading/account";
 import ChatWidget from "@/components/chat/ChatWidget";
+import ThemeSync from "@/components/theme/ThemeSync";
+import {getAppearanceForUser} from "@/lib/actions/appearance.actions";
 
 // Every page under (root) reads the session from request headers, so they can never be
 // statically prerendered. Declaring this avoids a build-time dynamic-usage error.
@@ -26,10 +28,11 @@ const Layout = async ({children}: {children: React.ReactNode}) => {
     // Pre-load the popular-stocks list once for the SearchCommand fallback, joined with this user's watchlist.
     // All strategy accounts power the compact sidebar card, priced from one shared
     // quote map (getQuote caches 30s, so this stays cheap across navigations).
-    const [initialStocks, watchlistSymbols, accountPortfolios] = await Promise.all([
+    const [initialStocks, watchlistSymbols, accountPortfolios, savedTheme] = await Promise.all([
         searchStocks(undefined, user.id),
-        getWatchlistSymbolsByUserId(user.id),
+        getCachedWatchlistSymbols(user.id),
         getPortfoliosForUser(user.id),
+        getAppearanceForUser(user.id),
     ]);
 
     const portfolio = aggregatePortfolios(accountPortfolios);
@@ -46,13 +49,14 @@ const Layout = async ({children}: {children: React.ReactNode}) => {
     };
 
     return (
-        <main className="min-h-screen" style={{ color: '#b9cacb' }}>
+        <main className="min-h-screen" style={{ color: 'var(--fg-soft)' }}>
             <Header user={user} initialStocks={initialStocks}/>
             <Sidebar watchlistCount={watchlistSymbols.length} portfolio={sidebarPortfolio} />
             <div className="pt-20 lg:ml-64 px-6 pb-8 min-h-screen">
                 {children}
             </div>
             <ChatWidget userId={user.id}/>
+            <ThemeSync dbTheme={savedTheme}/>
         </main>
     )
 }

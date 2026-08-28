@@ -95,16 +95,16 @@ const OrderPanel = ({defaultSymbol = '', cash, accountId}: OrderPanelProps) => {
     return (
         <div className="glass-panel rounded-xl p-5 flex flex-col gap-4">
             <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                <h3 className="text-sm font-bold uppercase tracking-[0.1em] text-brand" style={{fontFamily: 'var(--type-mono)'}}>
                     Order Entry
                 </h3>
-                <span className="text-[10px] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                <span className="text-[10px] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>
                     Buying Power {formatPrice(cash)}
                 </span>
             </div>
 
             {/* Buy / Sell toggle */}
-            <div className="grid grid-cols-2 gap-1 p-1 rounded-lg" style={{backgroundColor: '#1e2024'}}>
+            <div className="grid grid-cols-2 gap-1 p-1 rounded-lg" style={{backgroundColor: 'var(--surface-2)'}}>
                 {(['buy', 'sell'] as const).map((s) => (
                     <button
                         key={s}
@@ -114,11 +114,11 @@ const OrderPanel = ({defaultSymbol = '', cash, accountId}: OrderPanelProps) => {
                             'py-2 rounded-md text-xs font-bold uppercase tracking-wider transition-colors',
                             side === s
                                 ? s === 'buy'
-                                    ? 'bg-[rgba(0,240,255,0.15)] text-[#7df4ff]'
-                                    : 'bg-[rgba(255,180,171,0.15)] text-[#ffb4ab]'
-                                : 'text-[#849495] hover:text-[#e2e2e8]',
+                                    ? 'bg-brand-strong/15 text-brand'
+                                    : 'bg-negative/15 text-negative'
+                                : 'text-fg-muted hover:text-fg',
                         )}
-                        style={{fontFamily: 'var(--font-jetbrains)'}}
+                        style={{fontFamily: 'var(--type-mono)'}}
                     >
                         {s}
                     </button>
@@ -127,28 +127,28 @@ const OrderPanel = ({defaultSymbol = '', cash, accountId}: OrderPanelProps) => {
 
             {/* Symbol */}
             <div className="relative">
-                <label className="text-[10px] uppercase tracking-[0.1em] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>Symbol</label>
+                <label className="text-[10px] uppercase tracking-[0.1em] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>Symbol</label>
                 <input
                     value={symbol}
                     onChange={(e) => onSymbolChange(e.target.value)}
                     onBlur={() => window.setTimeout(() => setResults([]), 120)}
                     placeholder="e.g. AAPL"
                     autoComplete="off"
-                    className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-[#e2e2e8] outline-none"
-                    style={{backgroundColor: '#111318', border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}}
+                    className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-fg outline-none"
+                    style={{backgroundColor: 'var(--surface-0)', border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}}
                 />
                 {results.length > 0 && (
                     <div className="mt-1 w-full rounded-lg overflow-y-auto max-h-44 shadow-2xl"
-                         style={{backgroundColor: 'rgba(17,19,24,0.98)', border: '1px solid rgba(59,73,75,0.5)'}}>
+                         style={{backgroundColor: 'color-mix(in srgb, var(--surface-0) 98%, transparent)', border: '1px solid color-mix(in srgb, var(--line-strong) 50%, transparent)'}}>
                         {results.map((r) => (
                             <button
                                 key={r.symbol}
                                 type="button"
                                 onClick={() => pickResult(r)}
-                                className="w-full text-left px-3 py-2 hover:bg-[rgba(0,240,255,0.06)] flex items-center justify-between"
+                                className="w-full text-left px-3 py-2 hover:bg-brand-strong/6 flex items-center justify-between"
                             >
-                                <span className="text-sm font-bold text-[#e2e2e8]" style={{fontFamily: 'var(--font-jetbrains)'}}>{r.symbol}</span>
-                                <span className="text-xs text-[#849495] truncate max-w-[55%]">{r.name}</span>
+                                <span className="text-sm font-bold text-fg" style={{fontFamily: 'var(--type-mono)'}}>{r.symbol}</span>
+                                <span className="text-xs text-fg-muted truncate max-w-[55%]">{r.name}</span>
                             </button>
                         ))}
                     </div>
@@ -157,26 +157,26 @@ const OrderPanel = ({defaultSymbol = '', cash, accountId}: OrderPanelProps) => {
 
             {/* Quantity */}
             <div>
-                <label className="text-[10px] uppercase tracking-[0.1em] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>Shares</label>
+                <label className="text-[10px] uppercase tracking-[0.1em] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>Shares</label>
                 <input
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value.replace(/[^0-9]/g, ''))}
                     inputMode="numeric"
-                    className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-[#e2e2e8] outline-none"
-                    style={{backgroundColor: '#111318', border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}}
+                    className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-fg outline-none"
+                    style={{backgroundColor: 'var(--surface-0)', border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}}
                 />
             </div>
 
             {/* Live price + estimate */}
             <div className="flex items-center justify-between text-sm">
-                <span className="text-[#849495]">Live Price</span>
-                <span className="text-[#e2e2e8]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                <span className="text-fg-muted">Live Price</span>
+                <span className="text-fg" style={{fontFamily: 'var(--type-mono)'}}>
                     {priceLoading ? '…' : price !== null ? formatPrice(price) : '—'}
                 </span>
             </div>
-            <div className="flex items-center justify-between text-sm border-t border-[rgba(59,73,75,0.3)] pt-3">
-                <span className="text-[#849495]">Est. {side === 'buy' ? 'Cost' : 'Proceeds'}</span>
-                <span className="text-[#7df4ff] font-semibold" style={{fontFamily: 'var(--font-jetbrains)'}}>
+            <div className="flex items-center justify-between text-sm border-t border-line-strong/30 pt-3">
+                <span className="text-fg-muted">Est. {side === 'buy' ? 'Cost' : 'Proceeds'}</span>
+                <span className="text-brand font-semibold" style={{fontFamily: 'var(--type-mono)'}}>
                     {estTotal !== null ? formatPrice(estTotal) : '—'}
                 </span>
             </div>
@@ -187,12 +187,12 @@ const OrderPanel = ({defaultSymbol = '', cash, accountId}: OrderPanelProps) => {
                 disabled={submitting}
                 className={cn(
                     'w-full py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50',
-                    side === 'buy' ? 'text-[#002022]' : 'text-[#690005]',
+                    side === 'buy' ? 'text-on-brand' : 'text-on-negative',
                 )}
                 style={{
-                    fontFamily: 'var(--font-jetbrains)',
-                    backgroundColor: side === 'buy' ? '#00f0ff' : '#ffb4ab',
-                    boxShadow: side === 'buy' ? '0 0 15px rgba(0,240,255,0.3)' : '0 0 15px rgba(255,180,171,0.25)',
+                    fontFamily: 'var(--type-mono)',
+                    backgroundColor: side === 'buy' ? 'var(--brand-strong)' : 'var(--negative)',
+                    boxShadow: side === 'buy' ? '0 0 15px color-mix(in srgb, var(--brand-strong) 30%, transparent)' : '0 0 15px color-mix(in srgb, var(--negative) 25%, transparent)',
                 }}
             >
                 {submitting ? 'Placing…' : `${side === 'buy' ? 'Buy' : 'Sell'} ${symbol || ''}`.trim()}

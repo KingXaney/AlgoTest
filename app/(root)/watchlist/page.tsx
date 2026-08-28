@@ -15,12 +15,12 @@ const WatchlistPage = async () => {
             <div className="space-y-6">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                     <div>
-                        <h1 className="text-2xl font-semibold text-[#e2e2e8] mb-1 tracking-tight"
-                            style={{ fontFamily: 'var(--font-sora)' }}>
+                        <h1 className="text-2xl font-semibold text-fg mb-1 tracking-tight"
+                            style={{ fontFamily: 'var(--type-display)' }}>
                             Active Watchlist
                         </h1>
-                        <p className="text-sm text-[#b9cacb]"
-                           style={{ fontFamily: 'var(--font-hanken)' }}>
+                        <p className="text-sm text-fg-soft"
+                           style={{ fontFamily: 'var(--type-body)' }}>
                             Real-time telemetry for your tracked assets
                         </p>
                     </div>
@@ -47,19 +47,19 @@ const WatchlistPage = async () => {
         <div className="space-y-6">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
                 <div>
-                    <h1 className="text-2xl font-semibold text-[#e2e2e8] mb-1 tracking-tight"
-                        style={{ fontFamily: 'var(--font-sora)' }}>
+                    <h1 className="text-2xl font-semibold text-fg mb-1 tracking-tight"
+                        style={{ fontFamily: 'var(--type-display)' }}>
                         Active Watchlist
                     </h1>
-                    <p className="text-sm text-[#b9cacb]"
-                       style={{ fontFamily: 'var(--font-hanken)' }}>
+                    <p className="text-sm text-fg-soft"
+                       style={{ fontFamily: 'var(--type-body)' }}>
                         Real-time telemetry for your tracked assets
                     </p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2 text-[10px] text-[#849495]"
-                         style={{ fontFamily: 'var(--font-jetbrains)', letterSpacing: '0.02em' }}>
-                        <div className="w-2 h-2 rounded-full bg-[#7df4ff] animate-pulse"></div>
+                    <div className="flex items-center gap-2 text-[10px] text-fg-muted"
+                         style={{ fontFamily: 'var(--type-mono)', letterSpacing: '0.02em' }}>
+                        <div className="w-2 h-2 rounded-full bg-brand animate-pulse"></div>
                         {items.length} ASSETS TRACKED
                     </div>
                 </div>

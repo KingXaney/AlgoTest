@@ -9,11 +9,11 @@ const MarketsPage = () => {
         <div className="min-h-screen space-y-4">
             {/* Page Header */}
             <div className="mb-6">
-                <h1 className="text-2xl font-semibold text-[#e2e2e8] mb-1"
-                    style={{ fontFamily: 'var(--font-sora)' }}>
+                <h1 className="text-2xl font-semibold text-fg mb-1"
+                    style={{ fontFamily: 'var(--type-display)' }}>
                     Markets
                 </h1>
-                <p className="text-sm text-[#849495]">
+                <p className="text-sm text-fg-muted">
                     Scan equities, crypto and FX
                 </p>
             </div>

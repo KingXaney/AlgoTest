@@ -29,24 +29,24 @@ const FriendRequests = ({requests}: {requests: FriendRequest[]}) => {
 
     return (
         <div className="glass-panel rounded-xl p-5">
-            <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-[#7df4ff] mb-3" style={{fontFamily: 'var(--font-jetbrains)'}}>
+            <h2 className="text-sm font-bold uppercase tracking-[0.1em] text-brand mb-3" style={{fontFamily: 'var(--type-mono)'}}>
                 Pending Requests ({requests.length})
             </h2>
             <div className="space-y-2">
                 {requests.map((r) => (
                     <div key={r.friendshipId}
-                         className="flex items-center justify-between px-4 py-3 rounded-lg border bg-[rgba(30,32,36,0.4)] border-[rgba(59,73,75,0.2)]">
+                         className="flex items-center justify-between px-4 py-3 rounded-lg border bg-surface-2/40 border-line-strong/20">
                         <div>
-                            <div className="text-sm font-semibold text-[#e2e2e8]">{r.name}</div>
-                            <div className="text-[11px] text-[#849495]">{r.email}</div>
+                            <div className="text-sm font-semibold text-fg">{r.name}</div>
+                            <div className="text-[11px] text-fg-muted">{r.email}</div>
                         </div>
                         <div className="flex items-center gap-2">
                             <button
                                 type="button"
                                 onClick={() => respond(r.friendshipId, true)}
                                 disabled={busyId === r.friendshipId}
-                                className="px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider text-[#002022] disabled:opacity-50"
-                                style={{backgroundColor: '#00f0ff', fontFamily: 'var(--font-jetbrains)'}}
+                                className="px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider text-on-brand disabled:opacity-50"
+                                style={{backgroundColor: 'var(--brand-strong)', fontFamily: 'var(--type-mono)'}}
                             >
                                 Accept
                             </button>
@@ -54,8 +54,8 @@ const FriendRequests = ({requests}: {requests: FriendRequest[]}) => {
                                 type="button"
                                 onClick={() => respond(r.friendshipId, false)}
                                 disabled={busyId === r.friendshipId}
-                                className="px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider text-[#b9cacb] hover:text-[#ffb4ab] disabled:opacity-50"
-                                style={{border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}}
+                                className="px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider text-fg-soft hover:text-negative disabled:opacity-50"
+                                style={{border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}}
                             >
                                 Decline
                             </button>

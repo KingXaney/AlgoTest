@@ -133,11 +133,11 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
             style={{
                 width: `${size.width}px`,
                 height: `${size.height}px`,
-                backgroundColor: 'rgba(17, 19, 24, 0.95)',
+                backgroundColor: 'color-mix(in srgb, var(--surface-0) 95%, transparent)',
                 backdropFilter: 'blur(24px)',
                 WebkitBackdropFilter: 'blur(24px)',
-                border: '1px solid rgba(125, 244, 255, 0.15)',
-                boxShadow: '0 0 40px rgba(0, 240, 255, 0.08)',
+                border: '1px solid color-mix(in srgb, var(--brand) 15%, transparent)',
+                boxShadow: '0 0 40px color-mix(in srgb, var(--brand-strong) 8%, transparent)',
             }}
         >
             {/* Resize handles */}
@@ -164,13 +164,13 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3"
                  style={{
-                     backgroundColor: 'rgba(0, 240, 255, 0.08)',
-                     borderBottom: '1px solid rgba(59, 73, 75, 0.3)',
+                     backgroundColor: 'color-mix(in srgb, var(--brand-strong) 8%, transparent)',
+                     borderBottom: '1px solid color-mix(in srgb, var(--line-strong) 30%, transparent)',
                  }}>
                 <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#7df4ff] animate-pulse">smart_toy</span>
-                    <span className="text-xs font-bold tracking-[0.1em] uppercase text-[#7df4ff]"
-                          style={{ fontFamily: 'var(--font-jetbrains)' }}>
+                    <span className="material-symbols-outlined text-brand animate-pulse">smart_toy</span>
+                    <span className="text-xs font-bold tracking-[0.1em] uppercase text-brand"
+                          style={{ fontFamily: 'var(--type-mono)' }}>
                         Aero-AI Assistant
                     </span>
                 </div>
@@ -179,7 +179,7 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
                         type="button"
                         onClick={onClear}
                         title="Clear chat"
-                        className="rounded p-1.5 text-[#b9cacb] hover:bg-[rgba(40,42,46,0.8)] hover:text-[#e2e2e8] transition-colors"
+                        className="rounded p-1.5 text-fg-soft hover:bg-surface-3/80 hover:text-fg transition-colors"
                     >
                         <Trash2 className="size-4" />
                     </button>
@@ -187,7 +187,7 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
                         type="button"
                         onClick={onClose}
                         title="Close"
-                        className="rounded p-1.5 text-[#b9cacb] hover:bg-[rgba(40,42,46,0.8)] hover:text-[#e2e2e8] transition-colors"
+                        className="rounded p-1.5 text-fg-soft hover:bg-surface-3/80 hover:text-fg transition-colors"
                     >
                         <X className="size-4" />
                     </button>
@@ -198,8 +198,8 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
             <div ref={listRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 scrollbar-hide">
                 {messages.length === 0 && (
                     <div className="space-y-3">
-                        <div className="rounded-xl rounded-tl-none px-3 py-2 text-sm text-[#e2e2e8] max-w-[85%]"
-                             style={{ backgroundColor: '#282a2e' }}>
+                        <div className="rounded-xl rounded-tl-none px-3 py-2 text-sm text-fg max-w-[85%]"
+                             style={{ backgroundColor: 'var(--surface-3)' }}>
                             {CHAT_WELCOME_MESSAGE}
                         </div>
                         <div className="flex flex-col gap-2">
@@ -208,13 +208,13 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
                                     key={s}
                                     type="button"
                                     onClick={() => onSuggestion(s)}
-                                    className="text-left rounded-md px-3 py-1.5 text-xs text-[#b9cacb] hover:text-[#e2e2e8] transition-colors"
+                                    className="text-left rounded-md px-3 py-1.5 text-xs text-fg-soft hover:text-fg transition-colors"
                                     style={{
-                                        backgroundColor: 'rgba(30, 32, 36, 0.4)',
-                                        border: '1px solid rgba(59, 73, 75, 0.3)',
+                                        backgroundColor: 'color-mix(in srgb, var(--surface-2) 40%, transparent)',
+                                        border: '1px solid color-mix(in srgb, var(--line-strong) 30%, transparent)',
                                     }}
-                                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'rgba(30, 32, 36, 0.8)'; }}
-                                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'rgba(30, 32, 36, 0.4)'; }}
+                                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'color-mix(in srgb, var(--surface-2) 80%, transparent)'; }}
+                                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'color-mix(in srgb, var(--surface-2) 40%, transparent)'; }}
                                 >
                                     {s}
                                 </button>
@@ -228,8 +228,8 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
                 ))}
 
                 {isBusy && messages[messages.length - 1]?.role === 'user' && (
-                    <div className="flex items-center gap-1.5 p-3 rounded-xl rounded-tl-none w-fit text-[rgba(125,244,255,0.6)]"
-                         style={{ backgroundColor: '#282a2e' }}>
+                    <div className="flex items-center gap-1.5 p-3 rounded-xl rounded-tl-none w-fit text-brand/60"
+                         style={{ backgroundColor: 'var(--surface-3)' }}>
                         <div className="typing-dot"></div>
                         <div className="typing-dot"></div>
                         <div className="typing-dot"></div>
@@ -239,9 +239,9 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
                 {error && (
                     <div className="rounded-md px-3 py-2 text-xs"
                          style={{
-                             backgroundColor: 'rgba(147, 0, 10, 0.15)',
-                             border: '1px solid rgba(255, 180, 171, 0.3)',
-                             color: '#ffb4ab',
+                             backgroundColor: 'color-mix(in srgb, var(--negative) 15%, transparent)',
+                             border: '1px solid color-mix(in srgb, var(--negative) 30%, transparent)',
+                             color: 'var(--negative)',
                          }}>
                         Something went wrong. {error.message}
                     </div>
@@ -250,16 +250,16 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
 
             {/* Input */}
             <form onSubmit={onSubmit} className="flex items-center gap-2 px-3 py-3"
-                  style={{ borderTop: '1px solid rgba(59, 73, 75, 0.3)' }}>
+                  style={{ borderTop: '1px solid color-mix(in srgb, var(--line-strong) 30%, transparent)' }}>
                 <input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Query market data..."
                     disabled={isBusy}
-                    className="flex-1 rounded-lg px-3 py-2 text-sm text-[#e2e2e8] outline-none border-none"
+                    className="flex-1 rounded-lg px-3 py-2 text-sm text-fg outline-none border-none"
                     style={{
-                        backgroundColor: '#1e2024',
-                        fontFamily: 'var(--font-hanken)',
+                        backgroundColor: 'var(--surface-2)',
+                        fontFamily: 'var(--type-body)',
                     }}
                 />
                 <button
@@ -270,8 +270,8 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
                         (isBusy || !input.trim()) && 'opacity-50 cursor-not-allowed',
                     )}
                     style={{
-                        backgroundColor: '#00f0ff',
-                        color: '#002022',
+                        backgroundColor: 'var(--brand-strong)',
+                        color: 'var(--on-brand)',
                     }}
                     aria-label="Send message"
                 >

@@ -47,19 +47,19 @@ const SellPositionDialog = ({position, accountId, onClose}: {position: EnrichedP
 
     return (
         <Dialog open onOpenChange={(open) => { if (!open && !submitting) onClose(); }}>
-            <DialogContent className="bg-[#14171b] ring-[rgba(255,255,255,0.06)] sm:max-w-sm">
+            <DialogContent className="bg-surface-1 ring-line sm:max-w-sm">
                 <DialogHeader>
-                    <DialogTitle className="text-sm font-bold uppercase tracking-[0.1em] text-[#ffb4ab]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <DialogTitle className="text-sm font-bold uppercase tracking-[0.1em] text-negative" style={{fontFamily: 'var(--type-mono)'}}>
                         Sell {position.symbol}
                     </DialogTitle>
-                    <DialogDescription className="text-[#849495]">
+                    <DialogDescription className="text-fg-muted">
                         You own {owned} share{owned === 1 ? '' : 's'} of {position.company || position.symbol}.
                     </DialogDescription>
                 </DialogHeader>
 
                 <form className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); void onConfirm(); }}>
                     <div>
-                        <label htmlFor="sell-qty" className="text-[10px] uppercase tracking-[0.1em] text-[#849495]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                        <label htmlFor="sell-qty" className="text-[10px] uppercase tracking-[0.1em] text-fg-muted" style={{fontFamily: 'var(--type-mono)'}}>
                             Shares to sell
                         </label>
                         <input
@@ -68,15 +68,15 @@ const SellPositionDialog = ({position, accountId, onClose}: {position: EnrichedP
                             onChange={(e) => setQty(e.target.value.replace(/[^0-9]/g, ''))}
                             inputMode="numeric"
                             autoComplete="off"
-                            className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-[#e2e2e8] outline-none"
-                            style={{backgroundColor: '#111318', border: '1px solid rgba(59,73,75,0.4)', fontFamily: 'var(--font-jetbrains)'}}
+                            className="w-full mt-1 rounded-lg px-3 py-2 text-sm text-fg outline-none"
+                            style={{backgroundColor: 'var(--surface-0)', border: '1px solid color-mix(in srgb, var(--line-strong) 40%, transparent)', fontFamily: 'var(--type-mono)'}}
                         />
                         {qtyNum > owned && (
-                            <p className="mt-1 text-xs text-[#ffb4ab]">You only own {owned} share{owned === 1 ? '' : 's'}</p>
+                            <p className="mt-1 text-xs text-negative">You only own {owned} share{owned === 1 ? '' : 's'}</p>
                         )}
                     </div>
 
-                    <div className="grid grid-cols-4 gap-1 p-1 rounded-lg" style={{backgroundColor: '#1e2024'}}>
+                    <div className="grid grid-cols-4 gap-1 p-1 rounded-lg" style={{backgroundColor: 'var(--surface-2)'}}>
                         {presets.map((preset) => (
                             <button
                                 key={preset.label}
@@ -85,10 +85,10 @@ const SellPositionDialog = ({position, accountId, onClose}: {position: EnrichedP
                                 className={cn(
                                     'py-1.5 rounded-md text-xs font-bold uppercase tracking-wider transition-colors',
                                     qtyNum === preset.value
-                                        ? 'bg-[rgba(255,180,171,0.15)] text-[#ffb4ab]'
-                                        : 'text-[#849495] hover:text-[#e2e2e8]',
+                                        ? 'bg-negative/15 text-negative'
+                                        : 'text-fg-muted hover:text-fg',
                                 )}
-                                style={{fontFamily: 'var(--font-jetbrains)'}}
+                                style={{fontFamily: 'var(--type-mono)'}}
                             >
                                 {preset.label}
                             </button>
@@ -96,14 +96,14 @@ const SellPositionDialog = ({position, accountId, onClose}: {position: EnrichedP
                     </div>
 
                     <div className="flex items-center justify-between text-sm">
-                        <span className="text-[#849495]">Live Price</span>
-                        <span className="text-[#e2e2e8]" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                        <span className="text-fg-muted">Live Price</span>
+                        <span className="text-fg" style={{fontFamily: 'var(--type-mono)'}}>
                             {typeof price === 'number' ? formatPrice(price) : '—'}
                         </span>
                     </div>
-                    <div className="flex items-center justify-between text-sm border-t border-[rgba(59,73,75,0.3)] pt-3">
-                        <span className="text-[#849495]">Est. Proceeds</span>
-                        <span className="text-[#7df4ff] font-semibold" style={{fontFamily: 'var(--font-jetbrains)'}}>
+                    <div className="flex items-center justify-between text-sm border-t border-line-strong/30 pt-3">
+                        <span className="text-fg-muted">Est. Proceeds</span>
+                        <span className="text-brand font-semibold" style={{fontFamily: 'var(--type-mono)'}}>
                             {estProceeds !== null ? formatPrice(estProceeds) : '—'}
                         </span>
                     </div>
@@ -111,11 +111,11 @@ const SellPositionDialog = ({position, accountId, onClose}: {position: EnrichedP
                     <button
                         type="submit"
                         disabled={submitting || !valid}
-                        className="w-full py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-[#690005]"
+                        className="w-full py-3 rounded-lg text-sm font-bold uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 text-on-negative"
                         style={{
-                            fontFamily: 'var(--font-jetbrains)',
-                            backgroundColor: '#ffb4ab',
-                            boxShadow: '0 0 15px rgba(255,180,171,0.25)',
+                            fontFamily: 'var(--type-mono)',
+                            backgroundColor: 'var(--negative)',
+                            boxShadow: '0 0 15px color-mix(in srgb, var(--negative) 25%, transparent)',
                         }}
                     >
                         {submitting ? 'Selling…' : `Sell ${qtyNum || 0} share${qtyNum === 1 ? '' : 's'}`}

@@ -4,6 +4,7 @@
 // Keeping the non-serializable bits (Mongoose docs, price Maps) out of the
 // 'use server' boundary.
 
+import {cache} from "react";
 import {Types} from "mongoose";
 import {connectToDatabase} from "@/database/mongoose";
 import PaperAccount, {type PaperAccountDoc} from "@/database/models/paper-account.model";
@@ -177,7 +178,9 @@ export const getPortfolio = async (userId: string, accountId?: string): Promise<
 };
 
 // Every account priced from ONE shared quote map (same trick as the friends leaderboard).
-export const getPortfoliosForUser = async (userId: string): Promise<AccountWithPortfolio[]> => {
+// cache() dedupes within one server render (layout + dashboard widgets); it is a
+// pass-through outside React, so Inngest callers are unaffected.
+export const getPortfoliosForUser = cache(async (userId: string): Promise<AccountWithPortfolio[]> => {
     const accounts = await getAccountsForUser(userId);
     const allSymbols = accounts.flatMap((a) => a.positions.map((p) => p.symbol));
     const priceMap = await buildPriceMap(allSymbols);
@@ -188,7 +191,7 @@ export const getPortfoliosForUser = async (userId: string): Promise<AccountWithP
             priceMap,
         ),
     }));
-};
+});
 
 // Pure: collapse all of a user's strategy accounts into one summary (sidebar/dashboard).
 export const aggregatePortfolios = (list: AccountWithPortfolio[]): PortfolioSummary => {

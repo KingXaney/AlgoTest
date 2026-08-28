@@ -59,9 +59,9 @@ const ChatWidget = ({userId}: ChatWidgetProps) => {
                         'fixed bottom-5 right-5 z-[80] inline-flex size-14 items-center justify-center rounded-full transition-all hover:scale-110 active:scale-95 sm:bottom-6 sm:right-6 group',
                     )}
                     style={{
-                        backgroundColor: '#00f0ff',
-                        color: '#006970',
-                        boxShadow: '0 0 20px rgba(0, 240, 255, 0.4)',
+                        backgroundColor: 'var(--brand-strong)',
+                        color: 'var(--on-brand)',
+                        boxShadow: '0 0 20px color-mix(in srgb, var(--brand-strong) 40%, transparent)',
                     }}
                 >
                     <span className="material-symbols-outlined text-3xl">smart_toy</span>
