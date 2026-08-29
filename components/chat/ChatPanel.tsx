@@ -9,6 +9,9 @@ import ChatMessage from "@/components/chat/ChatMessage";
 import {CHAT_WELCOME_MESSAGE, CHAT_SUGGESTIONS} from "@/lib/constants";
 import {cn} from "@/lib/utils";
 
+// Tools that change what the surrounding pages show; the router refreshes after they run.
+const MUTATING_TOOLS = new Set(['addStockToWatchlist', 'removeStockFromWatchlist', 'followTopic', 'unfollowTopic']);
+
 type ChatPanelProps = {
     userId: string;
     onClose: () => void;
@@ -90,7 +93,7 @@ const ChatPanel = ({userId, onClose, initialMessages, onMessagesChange}: ChatPan
             const hasMutation = message.parts.some((p) => {
                 if (!p.type.startsWith('tool-')) return false;
                 const name = p.type.slice(5);
-                return name === 'addStockToWatchlist' || name === 'removeStockFromWatchlist';
+                return MUTATING_TOOLS.has(name);
             });
             if (hasMutation) router.refresh();
         },

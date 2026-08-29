@@ -21,6 +21,10 @@ const LABELS: Record<string, string> = {
     getMarketNews: 'Fetching market news',
     getBrainDigest: 'Reading the news brain',
     getAiSuggestions: 'Fetching AI suggestions',
+    getFollowedTopics: 'Checking your topics',
+    getTopicFeed: 'Reading topic news',
+    followTopic: 'Following a topic',
+    unfollowTopic: 'Unfollowing a topic',
 };
 
 const ChatToolChip = ({toolName, state, summary}: ChatToolChipProps) => {

@@ -26,7 +26,7 @@ const SignIn = () => {
         try {
             const result = await signInWithEmail(data);
             if (result.success) {
-                router.push('/')
+                router.push('/topics')
             } else {
                 toast.error('Sign in failed', {
                     description: result.error || 'Invalid email or password.'

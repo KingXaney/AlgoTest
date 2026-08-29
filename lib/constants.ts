@@ -1,12 +1,12 @@
+// Header order: topics first, then the dashboard and the market pages. Watchlist,
+// Friends and History stay reachable from the sidebar, the dropdown and ⌘K.
 export const NAV_ITEMS = [
+    { href: '/topics', label: 'Topics' },
     { href: '/', label: 'Dashboard' },
-    { href: '/markets', label: 'Markets' },
-    { href: '/trade', label: 'Trade' },
-    { href: '/portfolio', label: 'Portfolio' },
     { href: '/brain', label: 'Brain' },
-    { href: '/watchlist', label: 'Watchlist' },
-    { href: '/friends', label: 'Friends' },
-    { href: '/history', label: 'History' },
+    { href: '/portfolio', label: 'Portfolio' },
+    { href: '/trade', label: 'Trade' },
+    { href: '/markets', label: 'Markets' },
     { href: '/search', label: 'Search' },
 ];
 
@@ -442,11 +442,12 @@ export const WATCHLIST_TABLE_HEADER = [
 
 // --- Chat assistant ---
 export const CHAT_WELCOME_MESSAGE =
-    "Hi — I'm your AlgoTest Advisor. Ask me to look up a stock, summarize the news, or manage your watchlist.";
+    "Hi — I'm your AlgoTest Advisor. Ask what's new in your topics, follow something new, look up a stock, or manage your watchlist.";
 
 export const CHAT_SUGGESTIONS = [
+    "What's new in my topics?",
+    "Follow news about AI chips",
     "What's in my watchlist?",
     "Should I add NVDA?",
     "Summarize today's market news",
-    "Compare AAPL vs MSFT valuations",
 ];

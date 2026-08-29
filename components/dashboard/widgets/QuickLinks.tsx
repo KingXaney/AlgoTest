@@ -1,11 +1,14 @@
 import Link from "next/link";
 
 const LINKS = [
+    {href: '/topics', label: 'Topics', icon: 'interests'},
     {href: '/trade', label: 'Trade', icon: 'candlestick_chart'},
     {href: '/portfolio', label: 'Portfolio', icon: 'account_balance_wallet'},
     {href: '/watchlist', label: 'Watchlist', icon: 'bookmark'},
     {href: '/markets', label: 'Markets', icon: 'query_stats'},
     {href: '/brain', label: 'Brain', icon: 'neurology'},
+    {href: '/friends', label: 'Friends', icon: 'group'},
+    {href: '/history', label: 'History', icon: 'history'},
     {href: '/settings', label: 'Settings', icon: 'settings'},
 ];
 

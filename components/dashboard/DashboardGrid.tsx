@@ -124,7 +124,7 @@ const DashboardGrid = ({initialLayout, bodies, availableIds, headerActions, star
                         Dashboard
                     </h1>
                     <p className="text-sm text-fg-muted">
-                        {editing ? 'Drag widgets by their handle, resize, remove, or add new ones — then save.' : 'Your portfolio, watchlist and friends at a glance'}
+                        {editing ? 'Drag widgets by their handle, resize, remove, or add new ones — then save.' : 'Your topics, portfolio, watchlist and friends at a glance'}
                     </p>
                 </div>
                 <DashboardToolbar

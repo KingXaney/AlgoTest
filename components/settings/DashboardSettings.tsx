@@ -5,7 +5,7 @@ import Link from "next/link";
 import {toast} from "sonner";
 import {ArrowDown, ArrowUp, X} from "lucide-react";
 import {Switch} from "@/components/ui/switch";
-import {CATEGORY_ORDER, SPAN_LABELS, WIDGETS, type WidgetCategory, type WidgetId} from "@/lib/dashboard/widgets";
+import {CATEGORY_LABELS, CATEGORY_ORDER, SPAN_LABELS, WIDGETS, type WidgetId} from "@/lib/dashboard/widgets";
 import {
     addWidget, layoutsEqual, missingWidgetIds, moveWidget, removeWidget, resetLayout, setSpan, type DashboardLayout,
 } from "@/lib/dashboard/layout";
@@ -13,10 +13,6 @@ import {resetDashboardLayout, saveDashboardLayout} from "@/lib/actions/dashboard
 import {cn} from "@/lib/utils";
 
 const SAVE_DEBOUNCE_MS = 300;
-
-const CATEGORY_LABELS: Record<WidgetCategory, string> = {
-    personal: 'Personal', markets: 'Markets', strategy: 'Strategy', social: 'Social', brain: 'News Brain & AI', tools: 'Tools',
-};
 
 const switchClass = "data-[state=checked]:!bg-brand-strong data-[state=unchecked]:!bg-surface-4 data-[state=unchecked]:!border data-[state=unchecked]:!border-line-strong transition-colors duration-200";
 const iconButton = 'inline-flex items-center justify-center size-7 rounded-md text-fg-muted hover:text-fg hover:bg-surface-3 transition-colors disabled:opacity-30 disabled:hover:bg-transparent';

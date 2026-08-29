@@ -146,7 +146,7 @@ declare global {
         alertData: Alert[] | undefined;
     };
 
-    type NewsSourceType = 'finance' | 'rss' | 'reddit' | 'sec';
+    type NewsSourceType = 'finance' | 'rss' | 'web' | 'reddit' | 'sec';
 
     type MarketNewsArticle = {
         id: number;
@@ -167,10 +167,13 @@ declare global {
     };
 
     // --- Search & Watchlist ---
+    type TopicLink = {name: string; slug: string};
+
     type SearchCommandProps = {
         renderAs?: 'button' | 'text';
         label?: string;
         initialStocks: StockWithWatchlistStatus[];
+        initialTopics?: TopicLink[];   // followed topics, so ⌘K opens instead of duplicating
     };
 
     type WatchlistEntry = {
@@ -190,7 +193,11 @@ declare global {
         | 'removeStockFromWatchlist'
         | 'getMarketNews'
         | 'getBrainDigest'
-        | 'getAiSuggestions';
+        | 'getAiSuggestions'
+        | 'getFollowedTopics'
+        | 'getTopicFeed'
+        | 'followTopic'
+        | 'unfollowTopic';
 
     type AlertData = {
         symbol: string;
@@ -218,6 +225,7 @@ declare global {
         image?: string;
         category?: string;
         related?: string;
+        sourceTitle?: string;     // outlet named by an RSS <source> element, when the feed carries one
     };
 
     type Alert = {

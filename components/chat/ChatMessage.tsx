@@ -18,6 +18,8 @@ const summarizeTool = (toolName: string, part: {input?: unknown; output?: unknow
         if (typeof input.symbol === 'string') return input.symbol;
         if (typeof input.query === 'string') return `"${input.query}"`;
         if (Array.isArray(input.symbols)) return input.symbols.join(', ');
+        if (typeof input.topic === 'string') return `"${input.topic}"`;
+        if (typeof input.name === 'string') return `"${input.name}"`;
     }
 
     if (toolName === 'getWatchlist' && Array.isArray(output)) {
@@ -25,6 +27,10 @@ const summarizeTool = (toolName: string, part: {input?: unknown; output?: unknow
     }
     if (toolName === 'getMarketNews' && Array.isArray(output)) {
         return `${output.length} articles`;
+    }
+    if (toolName === 'getFollowedTopics' && output && typeof output === 'object') {
+        const topics = (output as {topics?: unknown}).topics;
+        if (Array.isArray(topics)) return `${topics.length} ${topics.length === 1 ? 'topic' : 'topics'}`;
     }
 
     return undefined;

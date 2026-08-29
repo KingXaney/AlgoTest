@@ -12,11 +12,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import {useRouter} from "next/navigation";
-import {LogOut, ChevronDown, Settings} from "lucide-react";
+import {LogOut, ChevronDown, Newspaper, Settings} from "lucide-react";
 import NavItems from "@/components/NavItems";
 import {signOut} from "@/lib/actions/auth.actions";
 
-function UserDropdown({user, initialStocks}: {user: User; initialStocks: StockWithWatchlistStatus[]}) {
+function UserDropdown({user, initialStocks, initialTopics}: {user: User; initialStocks: StockWithWatchlistStatus[]; initialTopics?: TopicLink[]}) {
     const router = useRouter();
 
     const handleSignOut = async () => {
@@ -101,6 +101,13 @@ function UserDropdown({user, initialStocks}: {user: User; initialStocks: StockWi
 
                 <DropdownMenuSeparator style={{ backgroundColor: 'var(--surface-2)', margin: '8px 0' }}/>
 
+                <DropdownMenuItem asChild className="group cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-fg focus:!bg-brand-strong/8 focus:!text-brand transition-colors">
+                    <Link href="/topics">
+                        <Newspaper className="size-4 text-fg-soft group-focus:text-brand transition-colors"/>
+                        My topics
+                    </Link>
+                </DropdownMenuItem>
+
                 {/* Themes, dashboard layout and notification preferences live in Settings */}
                 <DropdownMenuItem asChild className="group cursor-pointer rounded-md px-3 py-2 text-sm font-medium text-fg focus:!bg-brand-strong/8 focus:!text-brand transition-colors">
                     <Link href="/settings">
@@ -128,7 +135,7 @@ function UserDropdown({user, initialStocks}: {user: User; initialStocks: StockWi
                         Menu
                     </div>
                     <div className="px-1 pb-1">
-                        <NavItems initialStocks={initialStocks}/>
+                        <NavItems initialStocks={initialStocks} initialTopics={initialTopics}/>
                     </div>
                 </div>
             </DropdownMenuContent>

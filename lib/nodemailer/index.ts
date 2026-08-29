@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import {escapeHtml} from "@/lib/news/sanitize";
 import {WELCOME_EMAIL_TEMPLATE, NEWS_SUMMARY_EMAIL_TEMPLATE} from "@/lib/nodemailer/templates";
 
 export const transporter = nodemailer.createTransport({
@@ -15,13 +16,6 @@ export const transporter = nodemailer.createTransport({
 // signup is enough to mail arbitrary markup — a phishing link, say — to anyone.
 // Replacer functions rather than replacement strings: '$&' in a name would otherwise
 // be expanded by String.replace.
-const escapeHtml = (value: string): string =>
-    String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
 
 export const sendWelcomeEmail = async ({ email, name, intro }: WelcomeEmailData) => {
     const htmlTemplate = WELCOME_EMAIL_TEMPLATE
@@ -41,12 +35,13 @@ export const sendWelcomeEmail = async ({ email, name, intro }: WelcomeEmailData)
 }
 
 export const sendNewsSummaryEmail = async (
-    { email, date, newsContent }: { email: string; date: string; newsContent: string }
+    { email, date, newsContent, topicsSection = '' }: { email: string; date: string; newsContent: string; topicsSection?: string }
 ): Promise<void> => {
     const htmlTemplate = NEWS_SUMMARY_EMAIL_TEMPLATE
         .replace('{{date}}', () => escapeHtml(date))
-        // newsContent is deliberately HTML — sanitizeDigestHtml has already run on it.
-        .replace('{{newsContent}}', () => newsContent);
+        // newsContent and topicsSection are deliberately HTML — sanitizeDigestHtml has already run on them.
+        .replace('{{newsContent}}', () => newsContent)
+        .replace('{{topicsSection}}', () => topicsSection);
 
     const mailOptions = {
         from: `"AlgoTest News" <algotestadvisor@gmail.com>`,

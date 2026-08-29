@@ -5,12 +5,17 @@ import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { signOut } from "@/lib/actions/auth.actions";
 import PortfolioSidebarCard, { type SidebarPortfolio } from "@/components/PortfolioSidebarCard";
+import TopicsSidebarCard, { type SidebarTopics } from "@/components/topics/TopicsSidebarCard";
 
+// Topics lead; the market pages follow. Same order as NAV_ITEMS in lib/constants.ts,
+// plus the rows the header doesn't have room for.
 const sidebarNavItems = [
+    { href: '/topics', label: 'Topics', icon: 'interests' },
     { href: '/', label: 'Dashboard', icon: 'space_dashboard' },
-    { href: '/markets', label: 'Markets', icon: 'query_stats' },
-    { href: '/trade', label: 'Trade', icon: 'candlestick_chart' },
+    { href: '/brain', label: 'Brain', icon: 'neurology' },
     { href: '/portfolio', label: 'Portfolio', icon: 'account_balance_wallet' },
+    { href: '/trade', label: 'Trade', icon: 'candlestick_chart' },
+    { href: '/markets', label: 'Markets', icon: 'query_stats' },
     { href: '/watchlist', label: 'Watchlist', icon: 'bookmark' },
     { href: '/friends', label: 'Friends', icon: 'group' },
     { href: '/history', label: 'History', icon: 'history' },
@@ -20,9 +25,10 @@ const sidebarNavItems = [
 type SidebarProps = {
     watchlistCount: number;
     portfolio: SidebarPortfolio | null;
+    topics: SidebarTopics;
 };
 
-function Sidebar({ watchlistCount, portfolio }: SidebarProps) {
+function Sidebar({ watchlistCount, portfolio, topics }: SidebarProps) {
     const pathname = usePathname();
     const router = useRouter();
 
@@ -30,6 +36,9 @@ function Sidebar({ watchlistCount, portfolio }: SidebarProps) {
         await signOut();
         router.push('/sign-in');
     };
+
+    // The watchlist count used to be its own card; it now rides on the nav row.
+    const badgeFor = (href: string): number => (href === '/watchlist' ? watchlistCount : 0);
 
     return (
         <aside className="hidden lg:flex fixed left-0 top-16 bottom-0 z-40 flex-col w-64 border-r border-outline-variant/20"
@@ -39,43 +48,17 @@ function Sidebar({ watchlistCount, portfolio }: SidebarProps) {
                    WebkitBackdropFilter: 'blur(16px)',
                }}
         >
-            {/* Watchlist Summary Card */}
             <div className="p-6 flex-1 overflow-y-auto">
-                <Link
-                    href="/watchlist"
-                    className="relative block rounded-xl p-4 mb-6 shimmer overflow-hidden transition-all hover:brightness-110"
-                    style={{
-                        backgroundColor: 'color-mix(in srgb, var(--brand-strong) 6%, transparent)',
-                        border: '1px solid color-mix(in srgb, var(--brand) 15%, transparent)',
-                    }}
-                >
-                    <div className="relative z-10">
-                        <div className="flex items-center gap-3 mb-2">
-                            <span className="material-symbols-outlined text-brand"
-                                  style={{ fontVariationSettings: "'FILL' 1" }}
-                            >bookmark</span>
-                            <span className="text-brand text-xs font-bold tracking-[0.1em] uppercase"
-                                  style={{ fontFamily: 'var(--type-mono)' }}
-                            >Tracked Assets</span>
-                        </div>
-                        <p className="text-2xl font-semibold text-fg"
-                           style={{ fontFamily: 'var(--type-display)' }}
-                        >{watchlistCount}</p>
-                        <p className="text-sm text-brand-dim"
-                           style={{ fontFamily: 'var(--type-mono)' }}
-                        >{watchlistCount === 1 ? 'symbol' : 'symbols'} <span className="text-fg-muted text-xs">on watchlist</span></p>
-                    </div>
-                </Link>
+                <TopicsSidebarCard topics={topics} />
 
-                {/* Portfolio Summary Card */}
                 {portfolio && <PortfolioSidebarCard portfolio={portfolio} />}
 
-                {/* Navigation Items */}
                 <nav className="space-y-1">
                     {sidebarNavItems.map((item) => {
                         const isActive = item.href === '/'
                             ? pathname === '/'
                             : pathname.startsWith(item.href);
+                        const badge = badgeFor(item.href);
                         return (
                             <Link
                                 key={item.label}
@@ -93,13 +76,18 @@ function Sidebar({ watchlistCount, portfolio }: SidebarProps) {
                                     style={isActive ? { fontVariationSettings: "'FILL' 1" } : undefined}
                                 >{item.icon}</span>
                                 <span>{item.label}</span>
+                                {badge > 0 && (
+                                    <span
+                                        className="ml-auto rounded-full bg-surface-3 px-1.5 py-0.5 text-[10px] text-fg-muted"
+                                        aria-label={`${badge} ${badge === 1 ? 'symbol' : 'symbols'} on watchlist`}
+                                    >{badge}</span>
+                                )}
                             </Link>
                         );
                     })}
                 </nav>
             </div>
 
-            {/* Bottom Section */}
             <div className="mt-auto p-4 border-t border-line-strong/15">
                 <Link
                     href="/trade"

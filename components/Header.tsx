@@ -5,9 +5,10 @@ import UserDropdown from "@/components/UserDropdown";
 type HeaderProps = {
     user: User;
     initialStocks: StockWithWatchlistStatus[];
+    initialTopics: TopicLink[];
 };
 
-function Header({user, initialStocks}: HeaderProps) {
+function Header({user, initialStocks, initialTopics}: HeaderProps) {
     return (
         <header className='header'>
             <div className='header-wrapper'>
@@ -24,13 +25,13 @@ function Header({user, initialStocks}: HeaderProps) {
                         </span>
                     </Link>
                     <nav className="hidden sm:block">
-                        <NavItems initialStocks={initialStocks}/>
+                        <NavItems initialStocks={initialStocks} initialTopics={initialTopics}/>
                     </nav>
                 </div>
 
                 {/* Right Section */}
                 <div className="flex items-center gap-3">
-                    <UserDropdown user={user} initialStocks={initialStocks}/>
+                    <UserDropdown user={user} initialStocks={initialStocks} initialTopics={initialTopics}/>
                 </div>
             </div>
         </header>

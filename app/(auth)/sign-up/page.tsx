@@ -36,7 +36,7 @@ const SignUp = () => {
         try {
             const result = await signUpWithEmail(data);
             if (result.success) {
-                router.push('/')
+                router.push('/topics')
             } else {
                 toast.error('Sign up failed', {
                     description: result.error || 'Failed to create an account.'

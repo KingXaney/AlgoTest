@@ -7,9 +7,10 @@ import SearchCommand from "@/components/search/SearchCommand";
 
 type NavItemsProps = {
     initialStocks: StockWithWatchlistStatus[];
+    initialTopics?: TopicLink[];
 };
 
-function NavItems({initialStocks}: NavItemsProps) {
+function NavItems({initialStocks, initialTopics}: NavItemsProps) {
     const pathName = usePathname()
 
     const isActive = (path: string) => {
@@ -24,7 +25,7 @@ function NavItems({initialStocks}: NavItemsProps) {
                 if (label === 'Search') {
                     return (
                         <li key={href}>
-                            <SearchCommand renderAs="text" label="Search" initialStocks={initialStocks} />
+                            <SearchCommand renderAs="text" label="Search" initialStocks={initialStocks} initialTopics={initialTopics} />
                         </li>
                     );
                 }
