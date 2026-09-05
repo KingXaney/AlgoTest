@@ -26,26 +26,13 @@ const Layout = async ({children}:{children : React.ReactNode}) => {
 
             <section className="auth-right-section">
                 <div className="z-10 relative lg:mt-4 lg:mb-16">
-                    <blockquote className="auth-blockquote">
-                        AeroTrade turned my watchlist into a winning list. The real-time telemetry is unparalleled, and the precision alerts give me an edge in every trade.
-                    </blockquote>
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <cite className="auth-testimonial-author">— XINNAN HUANG</cite>
-                            <p className="max-md:text-xs text-fg-muted"
-                               style={{ fontFamily: 'var(--type-mono)', letterSpacing: '0.02em' }}>
-                                Verified Node 072 · Pro Trader
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-1">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                                <span key={star} className="material-symbols-outlined text-brand-strong text-lg"
-                                      style={{ fontVariationSettings: "'FILL' 1" }}>
-                                    star
-                                </span>
-                            ))}
-                        </div>
-                    </div>
+                    <p className="auth-blockquote">
+                        Paper-trade your strategies, follow the news topics you care about, and let a news brain that reads hundreds of articles a day tell you what the market is paying attention to.
+                    </p>
+                    <p className="max-md:text-xs text-fg-muted"
+                       style={{ fontFamily: 'var(--type-mono)', letterSpacing: '0.02em' }}>
+                        Open source · built by Xinnan Huang
+                    </p>
                 </div>
 
                 {/* Decorative elements */}

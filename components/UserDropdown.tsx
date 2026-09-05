@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Avatar, AvatarFallback} from "@/components/ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -34,7 +34,6 @@ function UserDropdown({user, initialStocks, initialTopics}: {user: User; initial
                     className="group inline-flex items-center gap-3 rounded-full px-2 py-1.5 text-fg-soft hover:bg-surface-3/60 hover:text-fg transition-colors outline-none focus-visible:ring-2 focus-visible:ring-brand-strong"
                 >
                     <Avatar className="h-9 w-9 ring-1 ring-line-strong group-hover:ring-brand-strong transition-all">
-                        <AvatarImage src="https://example.com/avatar.jpg" alt={user.name}/>
                         <AvatarFallback
                             className="text-sm font-bold"
                             style={{
@@ -53,7 +52,7 @@ function UserDropdown({user, initialStocks, initialTopics}: {user: User; initial
                         </span>
                         <span className="text-[10px] text-fg-muted"
                               style={{ fontFamily: 'var(--type-mono)', letterSpacing: '0.02em' }}>
-                            Verified Node
+                            Paper trading
                         </span>
                     </div>
                     <ChevronDown className="hidden md:block size-4 text-fg-muted group-hover:text-fg-soft transition-transform group-data-[state=open]:rotate-180"/>
@@ -78,8 +77,7 @@ function UserDropdown({user, initialStocks, initialTopics}: {user: User; initial
                     <div className="flex items-center gap-3 rounded-md p-3"
                          style={{ backgroundColor: 'color-mix(in srgb, var(--surface-2) 50%, transparent)' }}>
                         <Avatar className="h-11 w-11 ring-1 ring-line-strong">
-                            <AvatarImage src="https://example.com/avatar.jpg" alt={user.name}/>
-                            <AvatarFallback
+                                <AvatarFallback
                                 className="text-base font-bold"
                                 style={{ backgroundColor: 'var(--brand-strong)', color: 'var(--on-brand)', fontFamily: 'var(--type-display)' }}
                             >

@@ -9,8 +9,8 @@ type ChatToolChipProps = {
     summary?: string;
 };
 
-// Human-friendly labels for each tool. Keys match the union in [[chat-types]].
-const LABELS: Record<string, string> = {
+// Human-friendly labels for each tool; the type keeps this list complete.
+const LABELS: Record<ChatToolName, string> = {
     searchStock: 'Searching stocks',
     getStockQuote: 'Fetching quote',
     getStockProfile: 'Fetching company profile',
@@ -28,7 +28,7 @@ const LABELS: Record<string, string> = {
 };
 
 const ChatToolChip = ({toolName, state, summary}: ChatToolChipProps) => {
-    const label = LABELS[toolName] || toolName;
+    const label = LABELS[toolName as ChatToolName] || toolName;
 
     const Icon =
         state === 'output-error' ? AlertCircle :

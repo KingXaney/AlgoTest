@@ -119,12 +119,6 @@ declare global {
         metric?: { [key: string]: number };
     };
 
-    type SelectedStock = {
-        symbol: string;
-        company: string;
-        currentPrice?: number;
-    };
-
     type WatchlistTableProps = {
         watchlist: StockWithData[];
     };
@@ -142,10 +136,6 @@ declare global {
         peRatio?: string;
     };
 
-    type AlertsListProps = {
-        alertData: Alert[] | undefined;
-    };
-
     type NewsSourceType = 'finance' | 'rss' | 'web' | 'reddit' | 'sec';
 
     type MarketNewsArticle = {
@@ -160,10 +150,6 @@ declare global {
         image?: string;
         sourceType?: NewsSourceType;
         fullSummary?: string;     // untruncated text for the news brain
-    };
-
-    type WatchlistNewsProps = {
-        news?: MarketNewsArticle[];
     };
 
     // --- Search & Watchlist ---
@@ -199,22 +185,6 @@ declare global {
         | 'followTopic'
         | 'unfollowTopic';
 
-    type AlertData = {
-        symbol: string;
-        company: string;
-        alertName: string;
-        alertType: 'upper' | 'lower';
-        threshold: string;
-    };
-
-    type AlertModalProps = {
-        alertId?: string;
-        alertData?: AlertData;
-        action?: string;
-        open: boolean;
-        setOpen: (open: boolean) => void;
-    };
-
     type RawNewsArticle = {
         id: number;
         headline?: string;
@@ -226,17 +196,6 @@ declare global {
         category?: string;
         related?: string;
         sourceTitle?: string;     // outlet named by an RSS <source> element, when the feed carries one
-    };
-
-    type Alert = {
-        id: string;
-        symbol: string;
-        company: string;
-        alertName: string;
-        currentPrice: number;
-        alertType: 'upper' | 'lower';
-        threshold: number;
-        changePercent?: number;
     };
 
     // --- Paper trading ---

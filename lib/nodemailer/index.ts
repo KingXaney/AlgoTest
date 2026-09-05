@@ -17,17 +17,21 @@ export const transporter = nodemailer.createTransport({
 // Replacer functions rather than replacement strings: '$&' in a name would otherwise
 // be expanded by String.replace.
 
+// Absolute links in email need the deployment's public URL (the same one better-auth uses).
+const appUrl = () => (process.env.BETTER_AUTH_URL ?? '').replace(/\/$/, '') || 'http://localhost:3000';
+
 export const sendWelcomeEmail = async ({ email, name, intro }: WelcomeEmailData) => {
     const htmlTemplate = WELCOME_EMAIL_TEMPLATE
+        .replaceAll('{{appUrl}}', () => appUrl())
         .replace('{{name}}', () => escapeHtml(name))
         // intro is deliberately HTML — sanitizeWelcomeIntroHtml has already rebuilt it.
         .replace('{{intro}}', () => intro);
 
     const mailOptions = {
-        from: `"AlgoTest" <algotestadvisor@gmail.com>`,
+        from: `"AeroTrade" <${process.env.NODEMAILER_EMAIL}>`,
         to: email,
-        subject: `Welcome to AlgoTest - your stock market toolkit is ready!`,
-        text: 'Thanks for joining AlgoTest',
+        subject: `Welcome to AeroTrade — your trading terminal is ready`,
+        text: 'Thanks for joining AeroTrade',
         html: htmlTemplate,
     }
 
@@ -38,16 +42,17 @@ export const sendNewsSummaryEmail = async (
     { email, date, newsContent, topicsSection = '' }: { email: string; date: string; newsContent: string; topicsSection?: string }
 ): Promise<void> => {
     const htmlTemplate = NEWS_SUMMARY_EMAIL_TEMPLATE
+        .replaceAll('{{appUrl}}', () => appUrl())
         .replace('{{date}}', () => escapeHtml(date))
         // newsContent and topicsSection are deliberately HTML — sanitizeDigestHtml has already run on them.
         .replace('{{newsContent}}', () => newsContent)
         .replace('{{topicsSection}}', () => topicsSection);
 
     const mailOptions = {
-        from: `"AlgoTest News" <algotestadvisor@gmail.com>`,
+        from: `"AeroTrade News" <${process.env.NODEMAILER_EMAIL}>`,
         to: email,
         subject: `📈 Market News Summary Today - ${date}`,
-        text: `Today's market news summary from AlgoTest`,
+        text: `Today's market news summary from AeroTrade`,
         html: htmlTemplate,
     };
 

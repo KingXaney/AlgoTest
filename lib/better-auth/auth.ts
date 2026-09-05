@@ -23,6 +23,12 @@ function createAuthInstance(db: Parameters<typeof mongodbAdapter>[0]) {
             // so anyone who visits regularly effectively never gets logged out.
             updateAge: 60 * 60 * 24,
         },
+        // Serverless instances each keep their own in-memory counters, so the sign-in
+        // brute-force limiter only works when the store is shared.
+        rateLimit: {
+            enabled: true,
+            storage: 'database',
+        },
         plugins: [nextCookies()],
     });
 }

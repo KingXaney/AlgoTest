@@ -19,7 +19,7 @@ type ChatPanelProps = {
     onMessagesChange: (messages: UIMessage[]) => void;
 };
 
-const SIZE_KEY = (userId: string) => `algotest:chat:size:${userId}`;
+const SIZE_KEY = (userId: string) => `aero-chat-size:${userId}`;
 const DEFAULT_SIZE = {width: 380, height: 560};
 const MIN = {width: 320, height: 400};
 

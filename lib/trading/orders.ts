@@ -80,11 +80,15 @@ export const executeOrder = async (
         }
 
         const finalPositions = positions.filter((p) => p.quantity > 0);
-        const updated = await PaperAccount.updateOne({_id: account._id, userId}, {$set: {cash: newCash, positions: finalPositions}});
+        // `cash` doubles as a version stamp: every fill changes it, so a concurrent order
+        // that landed first makes this write match nothing instead of overwriting it.
+        const updated = await PaperAccount.updateOne(
+            {_id: account._id, userId, cash: account.cash},
+            {$set: {cash: newCash, positions: finalPositions}},
+        );
         if (updated.matchedCount === 0) {
-            // Account deleted between the ownership check and the write — never record
-            // a trade against an account that no longer exists.
-            return {success: false, message: 'Strategy account not found'};
+            const stillThere = await PaperAccount.exists({_id: account._id, userId});
+            return {success: false, message: stillThere ? 'Account changed while placing the order — please try again.' : 'Strategy account not found'};
         }
         await PaperTrade.create({
             userId,

@@ -59,8 +59,8 @@ import {TOPIC_BRIEFS_EVENT, TOPIC_FEEDS_EVENT, TOPIC_REFRESH_EVENT} from "@/lib/
 import {getTopicsDigestData} from "@/lib/topics/store";
 import {buildTopicsSectionHtml} from "@/lib/topics/digest-section";
 
-// Absolute links in email; the templates fall back to the same public host.
-const APP_URL = (process.env.BETTER_AUTH_URL ?? '').replace(/\/$/, '') || 'https://stock-market-dev.vercel.app';
+// Absolute links in email need the deployment's public URL (the same one better-auth uses).
+const APP_URL = (process.env.BETTER_AUTH_URL ?? '').replace(/\/$/, '') || 'http://localhost:3000';
 
 export const sendSignUpEmail = inngest.createFunction(
     { id: 'sign-up-email', triggers: [{ event: 'app/user.created' }] },
@@ -79,7 +79,7 @@ export const sendSignUpEmail = inngest.createFunction(
             // The model wrote this from the user's own signup answers and it lands in
             // the template unescaped — sanitize before it becomes email.
             const introText = sanitizeWelcomeIntroHtml(rawIntro || '')
-                || sanitizeWelcomeIntroHtml('Thanks for joining AlgoTest. You now have the tools to track markets and make smarter moves.');
+                || sanitizeWelcomeIntroHtml('Thanks for joining AeroTrade. You now have the tools to track markets and make smarter moves.');
 
             const { data: { email, name } } = event;
 

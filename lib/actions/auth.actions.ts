@@ -23,12 +23,12 @@ export const signUpWithEmail = async ({ email, password, fullName, country, inve
             await inngest.send({
                 name: 'app/user.created',
                 data: { email, name: fullName, country, investmentGoals, riskTolerance, preferredIndustry }
-            }).catch((e) => console.log('Failed to queue welcome email', e))
+            }).catch((e) => console.error('Failed to queue welcome email', e))
         }
 
         return { success: true, data: response }
     } catch (e) {
-        console.log('Sign up failed', e)
+        console.error('Sign up failed', e)
         return { success: false, error: extractAuthError(e, 'Sign up failed') }
     }
 }
@@ -42,7 +42,7 @@ export const signInWithEmail = async ({ email, password }: SignInFormData) => {
 
         return { success: true, data: response }
     } catch (e) {
-        console.log('Sign in failed', e)
+        console.error('Sign in failed', e)
         return { success: false, error: extractAuthError(e, 'Invalid email or password') }
     }
 }
@@ -52,7 +52,7 @@ export const signOut = async () => {
         await auth.api.signOut({ headers: await headers() });
         (await cookies()).delete(THEME_COOKIE);
     } catch (e) {
-        console.log('Sign out failed', e)
+        console.error('Sign out failed', e)
         return { success: false, error: 'Sign out failed' }
     }
 }
